@@ -1,22 +1,24 @@
+@use '../../../styles/variables' as *;
+
 // Блок: article-list
 .article-list {
-  max-width: 900px;
+  max-width: $container-max-width;
   margin: 0 auto;
-  padding: 2rem;
+  padding: $spacing-2xl;
 
   // Элемент: header
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: $spacing-2xl;
   }
 
   // Элемент: title
   &__title {
     margin: 0;
-    color: #333;
-    font-size: 2rem;
+    color: $color-text-primary;
+    font-size: $font-size-2xl;
   }
 
   // Элемент: content
@@ -27,14 +29,14 @@
   // Элемент: empty
   &__empty {
     text-align: center;
-    padding: 3rem;
-    background: #f8f9fa;
-    border-radius: 12px;
-    color: #666;
+    padding: $spacing-3xl;
+    background: $color-bg-secondary;
+    border-radius: $border-radius-xl;
+    color: $color-text-secondary;
 
     p {
-      margin: 0.5rem 0;
-      font-size: 1.1rem;
+      margin: $spacing-sm 0;
+      font-size: $font-size-md;
     }
   }
 
@@ -48,24 +50,24 @@
 
 // Блок: article-card
 .article-card {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: $color-bg-card;
+  border-radius: $border-radius-xl;
+  padding: $card-padding;
+  margin-bottom: $spacing-lg;
+  box-shadow: $shadow-sm;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all $transition-fast;
 
   &:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: $shadow-md;
     transform: translateY(-2px);
   }
 
   // Улучшенная видимость фокуса для клавиатурной навигации
   &:focus {
-    outline: 3px solid #4a90d9;
-    outline-offset: 2px;
-    box-shadow: 0 4px 16px rgba(74, 144, 217, 0.3);
+    outline: $focus-outline-width solid $color-primary;
+    outline-offset: $focus-outline-offset;
+    box-shadow: $shadow-focus-card;
   }
 
   &:focus:not(:focus-visible) {
@@ -73,9 +75,9 @@
   }
 
   &:focus-visible {
-    outline: 3px solid #4a90d9;
-    outline-offset: 2px;
-    box-shadow: 0 4px 16px rgba(74, 144, 217, 0.3);
+    outline: $focus-outline-width solid $color-primary;
+    outline-offset: $focus-outline-offset;
+    box-shadow: $shadow-focus-card;
   }
 
   // Элемент: header
@@ -83,29 +85,29 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 0.75rem;
+    margin-bottom: $spacing-md;
   }
 
   // Элемент: title
   &__title {
     margin: 0;
-    font-size: 1.25rem;
-    color: #333;
+    font-size: $font-size-lg;
+    color: $color-text-primary;
     word-break: break-word;
   }
 
   // Элемент: actions
   &__actions {
     display: flex;
-    gap: 0.25rem;
+    gap: $spacing-xs;
     flex-shrink: 0;
   }
 
   // Элемент: preview
   &__preview {
-    color: #666;
-    margin: 0 0 1rem 0;
-    line-height: 1.5;
+    color: $color-text-secondary;
+    margin: 0 0 $spacing-lg 0;
+    line-height: $line-height-tight;
     white-space: pre-wrap;
     word-break: break-word;
   }
@@ -113,9 +115,9 @@
   // Элемент: meta
   &__meta {
     display: flex;
-    gap: 1.5rem;
-    font-size: 0.85rem;
-    color: #888;
+    gap: $spacing-xl;
+    font-size: $font-size-xs;
+    color: $color-text-tertiary;
   }
 
   // Элемент: meta-item
@@ -129,84 +131,84 @@
 .button {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
+  gap: $spacing-sm;
+  padding: $button-padding-lg;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: $border-radius-lg;
+  font-size: $font-size-base;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all $transition-fast;
 
   // Элемент: icon
   &__icon {
-    font-size: 1.2rem;
+    font-size: $font-size-md;
     font-weight: bold;
   }
 
   // Модификатор: primary
   &--primary {
-    background: #4a90d9;
-    color: white;
+    background: $color-primary;
+    color: $color-text-inverse;
 
     &:hover {
-      background: #357abd;
+      background: $color-primary-hover;
     }
   }
 
   // Модификатор: icon
   &--icon {
-    padding: 0.5rem;
+    padding: $spacing-sm;
     background: transparent;
-    font-size: 1.2rem;
+    font-size: $font-size-md;
 
     &:hover {
-      background: rgba(0, 0, 0, 0.1);
+      background: $color-overlay-light;
     }
   }
 
   // Модификатор: danger (используется с icon)
   &--danger {
     &:hover {
-      background: rgba(220, 53, 69, 0.1);
+      background: $color-danger-light;
     }
   }
 }
 
 // Mobile responsive styles
-@media (max-width: 768px) {
+@media (max-width: $breakpoint-md) {
   .article-list {
-    padding: 1rem;
+    padding: $spacing-lg;
 
     &__header {
       flex-direction: column;
-      gap: 1rem;
+      gap: $spacing-lg;
       align-items: stretch;
     }
 
     &__title {
-      font-size: 1.5rem;
+      font-size: $font-size-xl;
       text-align: center;
     }
 
     &__empty {
-      padding: 2rem 1rem;
+      padding: $spacing-2xl $spacing-lg;
 
       p {
-        font-size: 1rem;
+        font-size: $font-size-base;
       }
     }
   }
 
   .article-card {
-    padding: 1rem;
+    padding: $card-padding-sm;
 
     &__header {
       flex-direction: column;
-      gap: 0.75rem;
+      gap: $spacing-md;
     }
 
     &__title {
-      font-size: 1.1rem;
+      font-size: $font-size-md;
     }
 
     &__actions {
@@ -219,38 +221,38 @@
 
     &__meta {
       flex-direction: column;
-      gap: 0.5rem;
+      gap: $spacing-sm;
       font-size: 0.8rem;
     }
   }
 
   .button {
-    padding: 0.75rem 1rem;
+    padding: $button-padding-md;
     font-size: 0.95rem;
     justify-content: center;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: $breakpoint-sm) {
   .article-list {
-    padding: 0.75rem;
+    padding: $spacing-md;
 
     &__title {
-      font-size: 1.25rem;
+      font-size: $font-size-lg;
     }
   }
 
   .button {
-    padding: 0.625rem 0.875rem;
-    font-size: 0.9rem;
+    padding: $button-padding-sm;
+    font-size: $font-size-sm;
   }
 
   .article-card {
-    padding: 0.875rem;
-    margin-bottom: 0.75rem;
+    padding: $card-padding-mobile;
+    margin-bottom: $spacing-md;
 
     &__title {
-      font-size: 1rem;
+      font-size: $font-size-base;
     }
   }
 }
