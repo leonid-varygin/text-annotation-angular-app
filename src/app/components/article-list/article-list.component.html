@@ -1,0 +1,35 @@
+<div class="article-list-container">
+  <header class="header">
+    <h1>Мои статьи</h1>
+    <button class="btn btn-primary" (click)="createNewArticle()">
+      <span class="icon">+</span>
+      Создать статью
+    </button>
+  </header>
+
+  <div class="articles" *ngIf="articles$ | async as articles">
+    <div *ngIf="articles.length === 0" class="empty-state">
+      <p>У вас пока нет статей.</p>
+      <p>Нажмите кнопку "Создать статью", чтобы начать.</p>
+    </div>
+
+    <div class="article-card" *ngFor="let article of articles" (click)="viewArticle(article.id)">
+      <div class="article-header">
+        <h2 class="article-title">{{ article.title || 'Без названия' }}</h2>
+        <div class="article-actions">
+          <button class="btn btn-icon" (click)="editArticle(article.id)" title="Редактировать">
+            ✏️
+          </button>
+          <button class="btn btn-icon btn-danger" (click)="deleteArticle($event, article.id)" title="Удалить">
+            🗑️
+          </button>
+        </div>
+      </div>
+      <p class="article-preview">{{ article.content | slice:0:150 }}{{ article.content.length > 150 ? '...' : '' }}</p>
+      <div class="article-meta">
+        <span class="meta-item">Создано: {{ formatDate(article.createdAt) }}</span>
+        <span class="meta-item">Обновлено: {{ formatDate(article.updatedAt) }}</span>
+      </div>
+    </div>
+  </div>
+</div>

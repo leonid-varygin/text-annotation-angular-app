@@ -1,0 +1,137 @@
+<div class="article-editor-container">
+  <!-- Header -->
+  <header class="header">
+    <button class="btn btn-secondary" (click)="goBack()">
+      ← Назад к списку
+    </button>
+    <div class="header-actions" *ngIf="!isEditMode">
+      <button class="btn btn-primary" (click)="enterEditMode()">
+        ✏️ Редактировать
+      </button>
+    </div>
+  </header>
+
+  <!-- Edit Mode -->
+  <div class="edit-mode" *ngIf="isEditMode">
+    <div class="form-group">
+      <label for="title">Заголовок</label>
+      <input
+        type="text"
+        id="title"
+        [(ngModel)]="title"
+        placeholder="Введите заголовок статьи..."
+        class="input-title"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="content">Содержание</label>
+      <textarea
+        id="content"
+        [(ngModel)]="content"
+        placeholder="Введите текст статьи..."
+        class="input-content"
+        rows="15"
+      ></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-secondary" (click)="cancelEdit()">
+        Отмена
+      </button>
+      <button class="btn btn-primary" (click)="saveArticle()">
+        💾 Сохранить
+      </button>
+    </div>
+  </div>
+
+  <!-- View Mode -->
+  <div class="view-mode" *ngIf="!isEditMode && article">
+    <article class="article">
+      <h1 class="article-title">{{ article.title || 'Без названия' }}</h1>
+
+      <div class="article-meta">
+        <span>Создано: {{ formatDate(article.createdAt) }}</span>
+        <span>Обновлено: {{ formatDate(article.updatedAt) }}</span>
+      </div>
+
+      <div class="article-info" *ngIf="annotations.length > 0">
+        <span class="annotation-count">📝 {{ annotations.length }} аннотаций</span>
+      </div>
+
+      <div
+        class="article-content"
+        #contentContainer
+        (mouseup)="onTextSelection()"
+      >
+        {{ article.content }}
+      </div>
+
+      <div class="selection-hint" *ngIf="annotations.length === 0">
+        💡 Выделите текст, чтобы добавить аннотацию
+      </div>
+    </article>
+  </div>
+
+  <!-- Annotation Modal -->
+  <div class="modal-overlay" *ngIf="showAnnotationModal" (click)="cancelAnnotation()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Создать аннотацию</h3>
+        <button class="btn-close" (click)="cancelAnnotation()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="selected-text-preview">
+          <label>Выделенный текст:</label>
+          <p class="selected-text">"{{ selectedText }}"</p>
+        </div>
+
+        <div class="form-group">
+          <label for="annotationColor">Цвет подчёркивания:</label>
+          <div class="color-picker">
+            <button
+              *ngFor="let color of colors"
+              class="color-option"
+              [style.backgroundColor]="color.value"
+              [class.selected]="annotationColor === color.value"
+              (click)="annotationColor = color.value"
+              [title]="color.label"
+            ></button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="annotationNote">Примечание (необязательно):</label>
+          <textarea
+            id="annotationNote"
+            [(ngModel)]="annotationNote"
+            placeholder="Введите текст примечания..."
+            class="input-note"
+            rows="3"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="cancelAnnotation()">
+          Отмена
+        </button>
+        <button class="btn btn-primary" (click)="createAnnotation()">
+          Создать аннотацию
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tooltip -->
+  <div
+    #tooltip
+    class="tooltip"
+    *ngIf="tooltipVisible"
+    [style.left.px]="tooltipX"
+    [style.top.px]="tooltipY"
+  >
+    {{ tooltipText }}
+  </div>
+</div>
