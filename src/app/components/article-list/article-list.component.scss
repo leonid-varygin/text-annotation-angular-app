@@ -17,7 +17,7 @@
   // Элемент: title
   &__title {
     margin: 0;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
     font-size: $font-size-2xl;
   }
 
@@ -30,9 +30,9 @@
   &__empty {
     text-align: center;
     padding: $spacing-3xl;
-    background: $color-bg-secondary;
+    background: var(--color-bg-secondary);
     border-radius: $border-radius-xl;
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
 
     p {
       margin: $spacing-sm 0;
@@ -50,24 +50,24 @@
 
 // Блок: article-card
 .article-card {
-  background: $color-bg-card;
+  background: var(--color-bg-card);
   border-radius: $border-radius-xl;
   padding: $card-padding;
   margin-bottom: $spacing-lg;
-  box-shadow: $shadow-sm;
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
   transition: all $transition-fast;
 
   &:hover {
-    box-shadow: $shadow-md;
+    box-shadow: var(--shadow-md);
     transform: translateY(-2px);
   }
 
   // Улучшенная видимость фокуса для клавиатурной навигации
   &:focus {
-    outline: $focus-outline-width solid $color-primary;
+    outline: $focus-outline-width solid var(--color-primary);
     outline-offset: $focus-outline-offset;
-    box-shadow: $shadow-focus-card;
+    box-shadow: var(--shadow-focus-card);
   }
 
   &:focus:not(:focus-visible) {
@@ -75,9 +75,9 @@
   }
 
   &:focus-visible {
-    outline: $focus-outline-width solid $color-primary;
+    outline: $focus-outline-width solid var(--color-primary);
     outline-offset: $focus-outline-offset;
-    box-shadow: $shadow-focus-card;
+    box-shadow: var(--shadow-focus-card);
   }
 
   // Элемент: header
@@ -92,7 +92,7 @@
   &__title {
     margin: 0;
     font-size: $font-size-lg;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
     word-break: break-word;
   }
 
@@ -105,7 +105,7 @@
 
   // Элемент: preview
   &__preview {
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     margin: 0 0 $spacing-lg 0;
     line-height: $line-height-tight;
     white-space: pre-wrap;
@@ -117,7 +117,7 @@
     display: flex;
     gap: $spacing-xl;
     font-size: $font-size-xs;
-    color: $color-text-tertiary;
+    color: var(--color-text-tertiary);
   }
 
   // Элемент: meta-item
@@ -147,11 +147,11 @@
 
   // Модификатор: primary
   &--primary {
-    background: $color-primary;
-    color: $color-text-inverse;
+    background: var(--color-primary);
+    color: var(--color-text-inverse);
 
     &:hover {
-      background: $color-primary-hover;
+      background: var(--color-primary-hover);
     }
   }
 
@@ -162,14 +162,14 @@
     font-size: $font-size-md;
 
     &:hover {
-      background: $color-overlay-light;
+      background: var(--color-overlay-light);
     }
   }
 
   // Модификатор: danger (используется с icon)
   &--danger {
     &:hover {
-      background: $color-danger-light;
+      background: var(--color-danger-light);
     }
   }
 }

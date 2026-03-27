@@ -1,65 +1,116 @@
-<main class="article-list" id="main-content" role="main" aria-labelledby="page-title">
+<main
+  class="article-list"
+  id="main-content"
+  role="main"
+  aria-labelledby="page-title"
+>
   <!-- Live region для объявлений скринридеру -->
-  <div aria-live="polite" aria-atomic="true" class="visually-hidden" [attr.aria-label]="announcement"></div>
+  <div
+    aria-live="polite"
+    aria-atomic="true"
+    class="visually-hidden"
+    [attr.aria-label]="announcement"
+  ></div>
 
   <header class="article-list__header">
     <h1 id="page-title" class="article-list__title">Мои статьи</h1>
     <button
       class="button button--primary"
       (click)="createNewArticle()"
-      aria-label="Создать новую статью">
+      aria-label="Создать новую статью"
+    >
       <span class="button__icon" aria-hidden="true">+</span>
       Создать статью
     </button>
   </header>
 
-  <section class="article-list__content" *ngIf="articles$ | async as articles" aria-labelledby="articles-heading">
+  <section
+    class="article-list__content"
+    *ngIf="articles$ | async as articles"
+    aria-labelledby="articles-heading"
+  >
     <h2 id="articles-heading" class="visually-hidden">Список статей</h2>
 
-    <div *ngIf="articles.length === 0" class="article-list__empty" role="status">
+    <div
+      *ngIf="articles.length === 0"
+      class="article-list__empty"
+      role="status"
+    >
       <p>У вас пока нет статей.</p>
       <p>Нажмите кнопку "Создать статью", чтобы начать.</p>
     </div>
 
-    <ul class="article-list__list" *ngIf="articles.length > 0" role="list" aria-label="Список статей">
+    <ul
+      class="article-list__list"
+      *ngIf="articles.length > 0"
+      role="list"
+      aria-label="Список статей"
+    >
       <li
         class="article-card"
         *ngFor="let article of articles; let i = index"
         tabindex="0"
         role="listitem"
-        [attr.aria-label]="'Статья ' + (i + 1) + ' из ' + articles.length + ': ' + (article.title || 'Без названия')"
+        [attr.aria-label]="
+          'Статья ' +
+          (i + 1) +
+          ' из ' +
+          articles.length +
+          ': ' +
+          (article.title || 'Без названия')
+        "
         (click)="viewArticle(article.id)"
-        (keydown)="onArticleKeydown($event, article.id)">
+        (keydown)="onArticleKeydown($event, article.id)"
+      >
         <div class="article-card__header">
-          <h2 class="article-card__title">{{ article.title || 'Без названия' }}</h2>
-          <div class="article-card__actions" role="group" aria-label="Действия со статьёй">
+          <h2 class="article-card__title">
+            {{ article.title || "Без названия" }}
+          </h2>
+          <div
+            class="article-card__actions"
+            role="group"
+            aria-label="Действия со статьёй"
+          >
             <button
               class="button button--icon"
               (click)="editArticle(article.id)"
-              [attr.aria-label]="'Редактировать статью: ' + (article.title || 'Без названия')"
-              title="Редактировать">
+              [attr.aria-label]="
+                'Редактировать статью: ' + (article.title || 'Без названия')
+              "
+              title="Редактировать"
+            >
               <span aria-hidden="true">✏️</span>
               <span class="visually-hidden">Редактировать</span>
             </button>
             <button
               class="button button--icon button--danger"
               (click)="deleteArticle($event, article.id)"
-              [attr.aria-label]="'Удалить статью: ' + (article.title || 'Без названия')"
-              title="Удалить">
+              [attr.aria-label]="
+                'Удалить статью: ' + (article.title || 'Без названия')
+              "
+              title="Удалить"
+            >
               <span aria-hidden="true">🗑️</span>
               <span class="visually-hidden">Удалить</span>
             </button>
           </div>
         </div>
-        <p class="article-card__preview">{{ article.content | slice:0:150 }}{{ article.content.length > 150 ? '...' : '' }}</p>
+        <p class="article-card__preview">
+          {{ article.content | slice: 0 : 150
+          }}{{ article.content.length > 150 ? "..." : "" }}
+        </p>
         <div class="article-card__meta" aria-label="Метаданные статьи">
-          <span class="article-card__meta-item">
-            <span class="visually-hidden">Создано: </span>
-            <time [attr.datetime]="article.createdAt">{{ formatDate(article.createdAt) }}</time>
+          <span>
+            <span>Создано: </span>
+            <time [attr.datetime]="article.createdAt">{{
+              formatDate(article.createdAt)
+            }}</time>
           </span>
-          <span class="article-card__meta-item">
-            <span class="visually-hidden">Обновлено: </span>
-            <time [attr.datetime]="article.updatedAt">{{ formatDate(article.updatedAt) }}</time>
+          <span>
+            <span>Обновлено: </span>
+            <time [attr.datetime]="article.updatedAt">{{
+              formatDate(article.updatedAt)
+            }}</time>
           </span>
         </div>
       </li>

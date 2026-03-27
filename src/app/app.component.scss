@@ -1,0 +1,33 @@
+@use '../styles/variables' as *;
+
+// Блок: app
+.app {
+  min-height: 100vh;
+
+  // Элемент: theme-switcher
+  &__theme-switcher {
+    position: fixed;
+    top: $spacing-lg;
+    left: $spacing-lg;
+    z-index: 100;
+  }
+}
+
+// Мобильные стили
+@media (max-width: $breakpoint-md) {
+  .app {
+    &__theme-switcher {
+      top: $spacing-md;
+      left: $spacing-md;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .app {
+    &__theme-switcher {
+      top: $spacing-sm;
+      left: $spacing-sm;
+    }
+  }
+}

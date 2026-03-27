@@ -1,0 +1,7 @@
+<button
+  class="theme-toggle"
+  (click)="toggleTheme()"
+  [attr.aria-label]="getThemeLabel(theme$ | async)"
+  [title]="getThemeLabel(theme$ | async)">
+  <span class="theme-toggle__icon" aria-hidden="true">{{ getThemeIcon(theme$ | async) }}</span>
+</button>

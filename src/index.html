@@ -6,7 +6,62 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Приложение для создания и аннотирования текстовых статей">
+  <meta name="theme-color" content="#f5f5f5">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    // Предотвращение мигания темы при загрузке страницы
+    // Этот скрипт должен выполняться до загрузки Angular
+    (function() {
+      const THEME_KEY = 'text_annotation_theme';
+      const savedTheme = localStorage.getItem(THEME_KEY);
+
+      function applyTheme(theme) {
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark-theme');
+          document.documentElement.classList.remove('light-theme');
+          updateThemeColor('#1a1a2e');
+        } else if (theme === 'light') {
+          document.documentElement.classList.add('light-theme');
+          document.documentElement.classList.remove('dark-theme');
+          updateThemeColor('#f5f5f5');
+        } else {
+          // auto - определяем по системным настройкам
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (prefersDark) {
+            document.documentElement.classList.add('dark-theme');
+            document.documentElement.classList.remove('light-theme');
+            updateThemeColor('#1a1a2e');
+          } else {
+            document.documentElement.classList.add('light-theme');
+            document.documentElement.classList.remove('dark-theme');
+            updateThemeColor('#f5f5f5');
+          }
+        }
+      }
+
+      function updateThemeColor(color) {
+        const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+        if (metaThemeColor) {
+          metaThemeColor.setAttribute('content', color);
+        }
+      }
+
+      // Применяем тему сразу
+      if (savedTheme) {
+        applyTheme(savedTheme);
+      } else {
+        applyTheme('auto');
+      }
+
+      // Слушаем изменения системной темы для auto режима
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+        const currentTheme = localStorage.getItem(THEME_KEY) || 'auto';
+        if (currentTheme === 'auto') {
+          applyTheme('auto');
+        }
+      });
+    })();
+  </script>
   <script>
     // Single Page Apps for GitHub Pages
     // https://github.com/rafgraph/spa-github-pages

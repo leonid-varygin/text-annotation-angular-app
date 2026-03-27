@@ -1,5 +1,174 @@
 @use 'styles/variables' as *;
 
+/* ===========================================
+   CSS Custom Properties (CSS Variables) for Theme Support
+   =========================================== */
+
+/* Light Theme (default) */
+:root,
+.light-theme {
+  // Primary colors
+  --color-primary: #{$color-primary};
+  --color-primary-hover: #{$color-primary-hover};
+  --color-primary-light: #{$color-primary-light};
+  --color-primary-transparent: #{$color-primary-transparent};
+
+  // Text colors
+  --color-text-primary: #{$color-text-primary};
+  --color-text-secondary: #{$color-text-secondary};
+  --color-text-tertiary: #{$color-text-tertiary};
+  --color-text-muted: #{$color-text-muted};
+  --color-text-inverse: #{$color-text-inverse};
+
+  // Background colors
+  --color-bg-primary: #{$color-bg-primary};
+  --color-bg-secondary: #{$color-bg-secondary};
+  --color-bg-card: #{$color-bg-card};
+  --color-bg-input: #{$color-bg-input};
+
+  // Border colors
+  --color-border-primary: #{$color-border-primary};
+  --color-border-hover: #{$color-border-hover};
+
+  // Status colors
+  --color-danger: #{$color-danger};
+  --color-danger-light: #{$color-danger-light};
+  --color-warning: #{$color-warning};
+  --color-warning-text: #{$color-warning-text};
+
+  // Scrollbar colors
+  --color-scrollbar-track: #{$color-scrollbar-track};
+  --color-scrollbar-thumb: #{$color-scrollbar-thumb};
+  --color-scrollbar-thumb-hover: #{$color-scrollbar-thumb-hover};
+
+  // Shadows
+  --shadow-sm: #{$shadow-sm};
+  --shadow-md: #{$shadow-md};
+  --shadow-lg: #{$shadow-lg};
+  --shadow-tooltip: #{$shadow-tooltip};
+  --shadow-focus: #{$shadow-focus};
+  --shadow-focus-card: #{$shadow-focus-card};
+  --shadow-modal: #{$shadow-modal};
+
+  // Overlay
+  --color-overlay: #{$color-overlay};
+  --color-overlay-light: #{$color-overlay-light};
+
+  // Tooltip
+  --color-tooltip-bg: #{$color-tooltip-bg};
+  --color-tooltip-text: #{$color-tooltip-text};
+}
+
+/* Dark Theme */
+.dark-theme {
+  // Primary colors
+  --color-primary: #{$color-primary-dark};
+  --color-primary-hover: #{$color-primary-hover-dark};
+  --color-primary-light: #{$color-primary-light-dark};
+  --color-primary-transparent: #{$color-primary-transparent-dark};
+
+  // Text colors
+  --color-text-primary: #{$color-text-primary-dark};
+  --color-text-secondary: #{$color-text-secondary-dark};
+  --color-text-tertiary: #{$color-text-tertiary-dark};
+  --color-text-muted: #{$color-text-muted-dark};
+  --color-text-inverse: #{$color-text-inverse-dark};
+
+  // Background colors
+  --color-bg-primary: #{$color-bg-primary-dark};
+  --color-bg-secondary: #{$color-bg-secondary-dark};
+  --color-bg-card: #{$color-bg-card-dark};
+  --color-bg-input: #{$color-bg-input-dark};
+
+  // Border colors
+  --color-border-primary: #{$color-border-primary-dark};
+  --color-border-hover: #{$color-border-hover-dark};
+
+  // Status colors
+  --color-danger: #{$color-danger-dark};
+  --color-danger-light: #{$color-danger-light-dark};
+  --color-warning: #{$color-warning-dark};
+  --color-warning-text: #{$color-warning-text-dark};
+
+  // Scrollbar colors
+  --color-scrollbar-track: #{$color-scrollbar-track-dark};
+  --color-scrollbar-thumb: #{$color-scrollbar-thumb-dark};
+  --color-scrollbar-thumb-hover: #{$color-scrollbar-thumb-hover-dark};
+
+  // Shadows
+  --shadow-sm: #{$shadow-sm-dark};
+  --shadow-md: #{$shadow-md-dark};
+  --shadow-lg: #{$shadow-lg-dark};
+  --shadow-tooltip: #{$shadow-tooltip-dark};
+  --shadow-focus: #{$shadow-focus-dark};
+  --shadow-focus-card: #{$shadow-focus-card-dark};
+  --shadow-modal: #{$shadow-modal-dark};
+
+  // Overlay
+  --color-overlay: #{$color-overlay-dark};
+  --color-overlay-light: #{$color-overlay-light-dark};
+
+  // Tooltip
+  --color-tooltip-bg: #{$color-tooltip-bg-dark};
+  --color-tooltip-text: #{$color-tooltip-text-dark};
+}
+
+/* System preference auto-detection (used before JS loads) */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-theme):not(.dark-theme) {
+    // Primary colors
+    --color-primary: #{$color-primary-dark};
+    --color-primary-hover: #{$color-primary-hover-dark};
+    --color-primary-light: #{$color-primary-light-dark};
+    --color-primary-transparent: #{$color-primary-transparent-dark};
+
+    // Text colors
+    --color-text-primary: #{$color-text-primary-dark};
+    --color-text-secondary: #{$color-text-secondary-dark};
+    --color-text-tertiary: #{$color-text-tertiary-dark};
+    --color-text-muted: #{$color-text-muted-dark};
+    --color-text-inverse: #{$color-text-inverse-dark};
+
+    // Background colors
+    --color-bg-primary: #{$color-bg-primary-dark};
+    --color-bg-secondary: #{$color-bg-secondary-dark};
+    --color-bg-card: #{$color-bg-card-dark};
+    --color-bg-input: #{$color-bg-input-dark};
+
+    // Border colors
+    --color-border-primary: #{$color-border-primary-dark};
+    --color-border-hover: #{$color-border-hover-dark};
+
+    // Status colors
+    --color-danger: #{$color-danger-dark};
+    --color-danger-light: #{$color-danger-light-dark};
+    --color-warning: #{$color-warning-dark};
+    --color-warning-text: #{$color-warning-text-dark};
+
+    // Scrollbar colors
+    --color-scrollbar-track: #{$color-scrollbar-track-dark};
+    --color-scrollbar-thumb: #{$color-scrollbar-thumb-dark};
+    --color-scrollbar-thumb-hover: #{$color-scrollbar-thumb-hover-dark};
+
+    // Shadows
+    --shadow-sm: #{$shadow-sm-dark};
+    --shadow-md: #{$shadow-md-dark};
+    --shadow-lg: #{$shadow-lg-dark};
+    --shadow-tooltip: #{$shadow-tooltip-dark};
+    --shadow-focus: #{$shadow-focus-dark};
+    --shadow-focus-card: #{$shadow-focus-card-dark};
+    --shadow-modal: #{$shadow-modal-dark};
+
+    // Overlay
+    --color-overlay: #{$color-overlay-dark};
+    --color-overlay-light: #{$color-overlay-light-dark};
+
+    // Tooltip
+    --color-tooltip-bg: #{$color-tooltip-bg-dark};
+    --color-tooltip-text: #{$color-tooltip-text-dark};
+  }
+}
+
 /* Global Styles */
 * {
   box-sizing: border-box;
@@ -11,8 +180,9 @@ html, body {
   font-family: $font-family-base;
   font-size: $font-size-base;
   line-height: $line-height-tight;
-  color: $color-text-primary;
-  background-color: $color-bg-primary;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  transition: background-color $transition-normal, color $transition-normal;
 }
 
 /* Scrollbar styling */
@@ -22,26 +192,26 @@ html, body {
 }
 
 ::-webkit-scrollbar-track {
-  background: $color-scrollbar-track;
+  background: var(--color-scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: $color-scrollbar-thumb;
+  background: var(--color-scrollbar-thumb);
   border-radius: $border-radius-md;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: $color-scrollbar-thumb-hover;
+  background: var(--color-scrollbar-thumb-hover);
 }
 
 /* Selection styling */
 ::selection {
-  background: $color-primary-transparent;
+  background: var(--color-primary-transparent);
 }
 
 /* Focus outline - улучшенная видимость для доступности */
 :focus {
-  outline: $focus-outline-width - 1 solid $color-primary;
+  outline: $focus-outline-width - 1 solid var(--color-primary);
   outline-offset: $focus-outline-offset;
 }
 
@@ -50,9 +220,9 @@ html, body {
 }
 
 :focus-visible {
-  outline: $focus-outline-width solid $color-primary;
+  outline: $focus-outline-width solid var(--color-primary);
   outline-offset: $focus-outline-offset;
-  box-shadow: $shadow-focus;
+  box-shadow: var(--shadow-focus);
 }
 
 /* Skip link для клавиатурной навигации */
@@ -61,8 +231,8 @@ html, body {
   top: -100px;
   left: 50%;
   transform: translateX(-50%);
-  background: $color-primary;
-  color: $color-text-inverse;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
   padding: $spacing-lg $spacing-2xl;
   border-radius: 0 0 $border-radius-lg $border-radius-lg;
   text-decoration: none;

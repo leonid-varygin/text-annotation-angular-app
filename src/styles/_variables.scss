@@ -10,6 +10,12 @@ $color-primary-hover: #357abd;
 $color-primary-light: rgba(74, 144, 217, 0.25);
 $color-primary-transparent: rgba(74, 144, 217, 0.3);
 
+// Dark theme primary adjustments
+$color-primary-dark: #6ba3e0;
+$color-primary-hover-dark: #5a93d7;
+$color-primary-light-dark: rgba(107, 163, 224, 0.25);
+$color-primary-transparent-dark: rgba(107, 163, 224, 0.3);
+
 // -------------------------------------------
 // Colors - Text
 // -------------------------------------------
@@ -19,6 +25,13 @@ $color-text-tertiary: #888;
 $color-text-muted: #495057;
 $color-text-inverse: white;
 
+// Dark theme text
+$color-text-primary-dark: #e4e4e4;
+$color-text-secondary-dark: #b0b0b0;
+$color-text-tertiary-dark: #888;
+$color-text-muted-dark: #a0a0a0;
+$color-text-inverse-dark: #1a1a2e;
+
 // -------------------------------------------
 // Colors - Background
 // -------------------------------------------
@@ -27,11 +40,21 @@ $color-bg-secondary: #f8f9fa;
 $color-bg-card: white;
 $color-bg-input: white;
 
+// Dark theme backgrounds
+$color-bg-primary-dark: #1a1a2e;
+$color-bg-secondary-dark: #242442;
+$color-bg-card-dark: #252542;
+$color-bg-input-dark: #2a2a4a;
+
 // -------------------------------------------
 // Colors - Borders
 // -------------------------------------------
 $color-border-primary: #e9ecef;
 $color-border-hover: #dee2e6;
+
+// Dark theme borders
+$color-border-primary-dark: #3a3a5c;
+$color-border-hover-dark: #4a4a6c;
 
 // -------------------------------------------
 // Colors - Status
@@ -41,12 +64,23 @@ $color-danger-light: rgba(220, 53, 69, 0.1);
 $color-warning: #fff3cd;
 $color-warning-text: #856404;
 
+// Dark theme status
+$color-danger-dark: #e05060;
+$color-danger-light-dark: rgba(224, 80, 96, 0.15);
+$color-warning-dark: #3d3520;
+$color-warning-text-dark: #f0d060;
+
 // -------------------------------------------
 // Colors - Scrollbar
 // -------------------------------------------
 $color-scrollbar-track: #f1f1f1;
 $color-scrollbar-thumb: #c1c1c1;
 $color-scrollbar-thumb-hover: #a1a1a1;
+
+// Dark theme scrollbar
+$color-scrollbar-track-dark: #2a2a4a;
+$color-scrollbar-thumb-dark: #4a4a6c;
+$color-scrollbar-thumb-hover-dark: #5a5a7c;
 
 // -------------------------------------------
 // Colors - Shadows
@@ -59,17 +93,34 @@ $shadow-focus: 0 0 0 4px rgba(74, 144, 217, 0.25);
 $shadow-focus-card: 0 4px 16px rgba(74, 144, 217, 0.3);
 $shadow-modal: 0 10px 40px rgba(0, 0, 0, 0.2);
 
+// Dark theme shadows
+$shadow-sm-dark: 0 2px 8px rgba(0, 0, 0, 0.3);
+$shadow-md-dark: 0 4px 16px rgba(0, 0, 0, 0.4);
+$shadow-lg-dark: 0 10px 40px rgba(0, 0, 0, 0.5);
+$shadow-tooltip-dark: 0 4px 12px rgba(0, 0, 0, 0.5);
+$shadow-focus-dark: 0 0 0 4px rgba(107, 163, 224, 0.3);
+$shadow-focus-card-dark: 0 4px 16px rgba(107, 163, 224, 0.25);
+$shadow-modal-dark: 0 10px 40px rgba(0, 0, 0, 0.5);
+
 // -------------------------------------------
 // Colors - Overlay
 // -------------------------------------------
 $color-overlay: rgba(0, 0, 0, 0.5);
 $color-overlay-light: rgba(0, 0, 0, 0.1);
 
+// Dark theme overlay
+$color-overlay-dark: rgba(0, 0, 0, 0.7);
+$color-overlay-light-dark: rgba(255, 255, 255, 0.05);
+
 // -------------------------------------------
 // Colors - Tooltip
 // -------------------------------------------
 $color-tooltip-bg: #333;
 $color-tooltip-text: white;
+
+// Dark theme tooltip
+$color-tooltip-bg-dark: #e4e4e4;
+$color-tooltip-text-dark: #1a1a2e;
 
 // -------------------------------------------
 // Typography
