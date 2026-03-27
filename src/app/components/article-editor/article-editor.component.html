@@ -1,37 +1,19 @@
+<!-- Header with app-header component -->
+<app-header
+  [title]="article?.title || 'Редактирование статьи'"
+  [showBackButton]="true"
+  backButtonText="Назад к списку"
+  [showEditButton]="!isEditMode && !isNewArticle"
+  (backClick)="goBack()"
+  (editClick)="enterEditMode()"
+></app-header>
+
 <main
   class="article-editor"
   id="main-content"
   role="main"
   aria-labelledby="editor-title"
 >
-  <!-- Live region для объявлений скринридеру -->
-  <div aria-live="polite" aria-atomic="true" class="visually-hidden">
-    {{ announcement }}
-  </div>
-
-  <!-- Header -->
-  <header class="article-editor__header" role="banner">
-    <nav aria-label="Навигация по статье">
-      <button
-        class="button button--secondary"
-        (click)="goBack()"
-        aria-label="Вернуться к списку статей"
-      >
-        <span aria-hidden="true">←</span>
-        Назад к списку
-      </button>
-    </nav>
-    <div class="article-editor__header-actions" *ngIf="!isEditMode">
-      <button
-        class="button button--primary"
-        (click)="enterEditMode()"
-        aria-label="Редактировать статью"
-      >
-        <span aria-hidden="true">✏️</span>
-        Редактировать
-      </button>
-    </div>
-  </header>
 
   <!-- Edit Mode -->
   <section

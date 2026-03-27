@@ -7,11 +7,12 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { ArticleService } from '../../services/article.service';
 import { AnnotationService } from '../../services/annotation.service';
 import { Article, Annotation } from '../../models/article.model';
+import { AppHeaderComponent } from '../app-header/app-header.component';
 
 @Component({
   selector: 'app-article-editor',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AppHeaderComponent],
   templateUrl: './article-editor.component.html',
   styleUrls: ['./article-editor.component.scss'],
   animations: [

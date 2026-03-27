@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { ArticleService } from '../../services/article.service';
 import { Article } from '../../models/article.model';
 import { Observable } from 'rxjs';
+import { AppHeaderComponent } from '../app-header/app-header.component';
 
 @Component({
   selector: 'app-article-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AppHeaderComponent],
   templateUrl: './article-list.component.html',
   styleUrls: ['./article-list.component.scss']
 })

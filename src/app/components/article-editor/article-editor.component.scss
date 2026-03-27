@@ -6,20 +6,6 @@
   margin: 0 auto;
   padding: $spacing-2xl;
 
-  // Элемент: header
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: $spacing-2xl;
-  }
-
-  // Элемент: header-actions
-  &__header-actions {
-    display: flex;
-    gap: $spacing-sm;
-  }
-
   // Элемент: edit
   &__edit {
     background: var(--color-bg-card);

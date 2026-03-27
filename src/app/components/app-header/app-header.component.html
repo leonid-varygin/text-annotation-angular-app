@@ -1,0 +1,53 @@
+<header class="app-header" role="banner">
+  <div class="app-header__container">
+    <!-- Левая часть: кнопка назад или заголовок -->
+    <div class="app-header__left">
+      <button
+        *ngIf="showBackButton"
+        class="button button--secondary button--compact"
+        (click)="backClick.emit()"
+        [attr.aria-label]="backButtonText"
+      >
+        <span class="button__icon" aria-hidden="true">←</span>
+        <span class="button__text">{{ backButtonText }}</span>
+      </button>
+
+      <h1 *ngIf="title && !showBackButton" class="app-header__title">
+        {{ title }}
+      </h1>
+    </div>
+
+    <!-- Центральная часть: заголовок (если есть кнопка назад) -->
+    <div class="app-header__center" *ngIf="showBackButton && title">
+      <h1 class="app-header__title app-header__title--compact">{{ title }}</h1>
+    </div>
+
+    <!-- Правая часть: действия и переключатель темы -->
+    <div class="app-header__right">
+      <button
+        *ngIf="showEditButton"
+        class="button button--primary button--compact"
+        (click)="editClick.emit()"
+        aria-label="Редактировать"
+      >
+        <span class="button__icon" aria-hidden="true">✏️</span>
+        <span class="button__text">Редактировать</span>
+      </button>
+
+      <button
+        *ngIf="showCreateButton"
+        class="button button--primary button--compact"
+        (click)="createClick.emit()"
+        [attr.aria-label]="createButtonText"
+      >
+        <span class="button__icon" aria-hidden="true">+</span>
+        <span class="button__text">{{ createButtonText }}</span>
+      </button>
+
+      <!-- Переключатель темы -->
+      <div class="app-header__theme-switcher">
+        <app-theme-switcher></app-theme-switcher>
+      </div>
+    </div>
+  </div>
+</header>

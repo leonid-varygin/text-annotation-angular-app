@@ -6,21 +6,6 @@
   margin: 0 auto;
   padding: $spacing-2xl;
 
-  // Элемент: header
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: $spacing-2xl;
-  }
-
-  // Элемент: title
-  &__title {
-    margin: 0;
-    color: var(--color-text-primary);
-    font-size: $font-size-2xl;
-  }
-
   // Элемент: content
   &__content {
     // Контейнер для списка статей

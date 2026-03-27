@@ -1,8 +1,14 @@
+<app-header
+  title="Мои статьи"
+  [showCreateButton]="true"
+  createButtonText="Создать статью"
+  (createClick)="createNewArticle()"
+></app-header>
+
 <main
   class="article-list"
   id="main-content"
   role="main"
-  aria-labelledby="page-title"
 >
   <!-- Live region для объявлений скринридеру -->
   <div
@@ -11,18 +17,6 @@
     class="visually-hidden"
     [attr.aria-label]="announcement"
   ></div>
-
-  <header class="article-list__header">
-    <h1 id="page-title" class="article-list__title">Мои статьи</h1>
-    <button
-      class="button button--primary"
-      (click)="createNewArticle()"
-      aria-label="Создать новую статью"
-    >
-      <span class="button__icon" aria-hidden="true">+</span>
-      Создать статью
-    </button>
-  </header>
 
   <section
     class="article-list__content"
