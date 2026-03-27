@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewChecked, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -54,6 +54,8 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewCheck
 
   private destroy$ = new Subject<void>();
   private annotationsApplied = false;
+  private selectionCheckTimeout: any = null;
+  isSelecting = false; // Публичное свойство для использования в шаблоне
 
   constructor(
     private route: ActivatedRoute,
@@ -95,6 +97,73 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewCheck
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+    if (this.selectionCheckTimeout) {
+      clearTimeout(this.selectionCheckTimeout);
+    }
+  }
+
+  // Глобальный обработчик изменения выделения (для мобильных устройств)
+  @HostListener('document:selectionchange', ['$event'])
+  onSelectionChange(event: Event): void {
+    if (this.isEditMode || !this.contentContainer) return;
+
+    // Debounce для мобильных устройств - ждём завершения выделения
+    if (this.selectionCheckTimeout) {
+      clearTimeout(this.selectionCheckTimeout);
+    }
+
+    this.selectionCheckTimeout = setTimeout(() => {
+      this.checkTextSelection();
+    }, 300);
+  }
+
+  // Обработчик начала касания (для мобильных)
+  onTouchStart(event: TouchEvent): void {
+    if (this.isEditMode) return;
+    this.isSelecting = true;
+  }
+
+  // Обработчик окончания касания (для мобильных)
+  onTouchEnd(event: TouchEvent): void {
+    if (this.isEditMode) return;
+    this.isSelecting = false;
+
+    // Небольшая задержка для завершения выделения
+    setTimeout(() => {
+      this.checkTextSelection();
+    }, 100);
+  }
+
+  // Проверка выделения текста
+  private checkTextSelection(): void {
+    const selection = window.getSelection();
+    if (!selection || selection.isCollapsed) return;
+
+    const range = selection.getRangeAt(0);
+    const selectedText = selection.toString();
+
+    if (!selectedText.trim()) return;
+
+    // Проверяем, что выделение находится внутри контейнера статьи
+    const container = this.contentContainer?.nativeElement;
+    if (!container) return;
+
+    if (!container.contains(range.commonAncestorContainer)) return;
+
+    // Calculate indices relative to article content
+    const indices = this.getTextIndices(range, container);
+
+    if (indices === null) return;
+
+    this.selectedText = selectedText;
+    this.selectedStartIndex = indices.start;
+    this.selectedEndIndex = indices.end;
+    this.annotationNote = '';
+    this.annotationColor = '#ffeb3b';
+    this.showAnnotationModal = true;
+
+    // Clear selection
+    selection.removeAllRanges();
   }
 
   private loadArticle(id: string): void {
@@ -232,33 +301,10 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewCheck
     this.router.navigate(['/']);
   }
 
-  // Text selection for annotation
+  // Text selection for annotation (desktop mouseup)
   onTextSelection(): void {
     if (this.isEditMode) return;
-
-    const selection = window.getSelection();
-    if (!selection || selection.isCollapsed) return;
-
-    const range = selection.getRangeAt(0);
-    const selectedText = selection.toString();
-
-    if (!selectedText.trim()) return;
-
-    // Calculate indices relative to article content
-    const container = this.contentContainer.nativeElement;
-    const indices = this.getTextIndices(range, container);
-
-    if (indices === null) return;
-
-    this.selectedText = selectedText;
-    this.selectedStartIndex = indices.start;
-    this.selectedEndIndex = indices.end;
-    this.annotationNote = '';
-    this.annotationColor = '#ffeb3b';
-    this.showAnnotationModal = true;
-
-    // Clear selection
-    selection.removeAllRanges();
+    this.checkTextSelection();
   }
 
   private getTextIndices(range: Range, container: HTMLElement): { start: number; end: number } | null {

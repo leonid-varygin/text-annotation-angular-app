@@ -63,12 +63,16 @@
         class="article-content"
         #contentContainer
         (mouseup)="onTextSelection()"
+        (touchstart)="onTouchStart($event)"
+        (touchend)="onTouchEnd($event)"
+        (touchcancel)="isSelecting = false"
       >
         {{ article.content }}
       </div>
 
       <div class="selection-hint" *ngIf="annotations.length === 0">
         💡 Выделите текст, чтобы добавить аннотацию
+        <span class="mobile-hint">(удерживайте и перетащите для выделения)</span>
       </div>
     </article>
   </div>
