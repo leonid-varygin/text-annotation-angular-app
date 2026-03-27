@@ -117,19 +117,19 @@ html, body {
     outline-offset: 2px;
   }
 
-  .btn {
+  .button {
     border: 2px solid currentColor;
   }
 }
 
 /* Улучшенная видимость для людей с нарушениями зрения */
 @media (forced-colors: active) {
-  .btn {
+  .button {
     border: 2px solid currentColor;
   }
 
   .article-card:focus,
-  .color-option:focus {
+  .modal__color-option:focus {
     outline: 3px solid currentColor;
   }
 }

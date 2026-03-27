@@ -1,27 +1,27 @@
-<main class="article-list-container" id="main-content" role="main" aria-labelledby="page-title">
+<main class="article-list" id="main-content" role="main" aria-labelledby="page-title">
   <!-- Live region для объявлений скринридеру -->
   <div aria-live="polite" aria-atomic="true" class="visually-hidden" [attr.aria-label]="announcement"></div>
 
-  <header class="header">
-    <h1 id="page-title">Мои статьи</h1>
+  <header class="article-list__header">
+    <h1 id="page-title" class="article-list__title">Мои статьи</h1>
     <button
-      class="btn btn-primary"
+      class="button button--primary"
       (click)="createNewArticle()"
       aria-label="Создать новую статью">
-      <span class="icon" aria-hidden="true">+</span>
+      <span class="button__icon" aria-hidden="true">+</span>
       Создать статью
     </button>
   </header>
 
-  <section class="articles" *ngIf="articles$ | async as articles" aria-labelledby="articles-heading">
+  <section class="article-list__content" *ngIf="articles$ | async as articles" aria-labelledby="articles-heading">
     <h2 id="articles-heading" class="visually-hidden">Список статей</h2>
 
-    <div *ngIf="articles.length === 0" class="empty-state" role="status">
+    <div *ngIf="articles.length === 0" class="article-list__empty" role="status">
       <p>У вас пока нет статей.</p>
       <p>Нажмите кнопку "Создать статью", чтобы начать.</p>
     </div>
 
-    <ul class="articles-list" *ngIf="articles.length > 0" role="list" aria-label="Список статей">
+    <ul class="article-list__list" *ngIf="articles.length > 0" role="list" aria-label="Список статей">
       <li
         class="article-card"
         *ngFor="let article of articles; let i = index"
@@ -30,11 +30,11 @@
         [attr.aria-label]="'Статья ' + (i + 1) + ' из ' + articles.length + ': ' + (article.title || 'Без названия')"
         (click)="viewArticle(article.id)"
         (keydown)="onArticleKeydown($event, article.id)">
-        <div class="article-header">
-          <h2 class="article-title">{{ article.title || 'Без названия' }}</h2>
-          <div class="article-actions" role="group" aria-label="Действия со статьёй">
+        <div class="article-card__header">
+          <h2 class="article-card__title">{{ article.title || 'Без названия' }}</h2>
+          <div class="article-card__actions" role="group" aria-label="Действия со статьёй">
             <button
-              class="btn btn-icon"
+              class="button button--icon"
               (click)="editArticle(article.id)"
               [attr.aria-label]="'Редактировать статью: ' + (article.title || 'Без названия')"
               title="Редактировать">
@@ -42,7 +42,7 @@
               <span class="visually-hidden">Редактировать</span>
             </button>
             <button
-              class="btn btn-icon btn-danger"
+              class="button button--icon button--danger"
               (click)="deleteArticle($event, article.id)"
               [attr.aria-label]="'Удалить статью: ' + (article.title || 'Без названия')"
               title="Удалить">
@@ -51,13 +51,13 @@
             </button>
           </div>
         </div>
-        <p class="article-preview">{{ article.content | slice:0:150 }}{{ article.content.length > 150 ? '...' : '' }}</p>
-        <div class="article-meta" aria-label="Метаданные статьи">
-          <span class="meta-item">
+        <p class="article-card__preview">{{ article.content | slice:0:150 }}{{ article.content.length > 150 ? '...' : '' }}</p>
+        <div class="article-card__meta" aria-label="Метаданные статьи">
+          <span class="article-card__meta-item">
             <span class="visually-hidden">Создано: </span>
             <time [attr.datetime]="article.createdAt">{{ formatDate(article.createdAt) }}</time>
           </span>
-          <span class="meta-item">
+          <span class="article-card__meta-item">
             <span class="visually-hidden">Обновлено: </span>
             <time [attr.datetime]="article.updatedAt">{{ formatDate(article.updatedAt) }}</time>
           </span>

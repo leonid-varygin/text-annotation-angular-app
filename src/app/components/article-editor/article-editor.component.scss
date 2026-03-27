@@ -1,22 +1,42 @@
-.article-editor-container {
+// Блок: article-editor
+.article-editor {
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem;
+
+  // Элемент: header
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  // Элемент: header-actions
+  &__header-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  // Элемент: edit
+  &__edit {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  // Элемент: view
+  &__view {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.header-actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.btn {
+// Блок: button
+.button {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -43,7 +63,8 @@
     box-shadow: 0 0 0 4px rgba(74, 144, 217, 0.25);
   }
 
-  &.btn-primary {
+  // Модификатор: primary
+  &--primary {
     background: #4a90d9;
     color: white;
 
@@ -52,7 +73,8 @@
     }
   }
 
-  &.btn-secondary {
+  // Модификатор: secondary
+  &--secondary {
     background: #e9ecef;
     color: #495057;
 
@@ -62,93 +84,94 @@
   }
 }
 
-// Edit Mode
-.edit-mode {
-  background: white;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
+// Блок: form
+.form {
+  // Элемент: group
+  &__group {
+    margin-bottom: 1.5rem;
 
-.form-group {
-  margin-bottom: 1.5rem;
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #333;
+    }
+  }
 
-  label {
+  // Элемент: label
+  &__label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
     color: #333;
   }
-}
 
-.input-title {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 2px solid #e9ecef;
-  border-radius: 8px;
-  font-size: 1.25rem;
-  transition: border-color 0.2s ease;
-
-  &:focus {
-    outline: none;
-    border-color: #4a90d9;
-    box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.25);
+  // Элемент: required
+  &__required {
+    color: #dc3545;
   }
 
-  // Состояние ошибки для доступности
-  &[aria-invalid="true"] {
-    // border-color: #dc3545;
+  // Элемент: input
+  &__input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+    font-family: inherit;
+
+    &:focus {
+      outline: none;
+      border-color: #4a90d9;
+      box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.25);
+    }
+
+    // Состояние ошибки для доступности
+    &[aria-invalid="true"] {
+      // border-color: #dc3545;
+    }
+
+    // Модификатор: title
+    &--title {
+      font-size: 1.25rem;
+    }
+
+    // Модификатор: content
+    &--content {
+      padding: 1rem;
+      line-height: 1.6;
+      resize: vertical;
+      min-height: 300px;
+    }
+
+    // Модификатор: note
+    &--note {
+      resize: vertical;
+    }
+  }
+
+  // Элемент: actions
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
   }
 }
 
-.input-content {
-  width: 100%;
-  padding: 1rem;
-  border: 2px solid #e9ecef;
-  border-radius: 8px;
-  font-size: 1rem;
-  line-height: 1.6;
-  resize: vertical;
-  min-height: 300px;
-  font-family: inherit;
-  transition: border-color 0.2s ease;
-
-  &:focus {
-    outline: none;
-    border-color: #4a90d9;
-    box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.25);
-  }
-
-  // Состояние ошибки для доступности
-  &[aria-invalid="true"] {
-    // border-color: #dc3545;
-  }
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-
-// View Mode
-.view-mode {
-  background: white;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.article {
-  .article-title {
+// Блок: article-view
+.article-view {
+  // Элемент: title
+  &__title {
     font-size: 2rem;
     margin: 0 0 1rem 0;
     color: #333;
     word-break: break-word;
   }
 
-  .article-meta {
+  // Элемент: meta
+  &__meta {
     display: flex;
     gap: 1.5rem;
     font-size: 0.9rem;
@@ -158,11 +181,13 @@
     border-bottom: 1px solid #e9ecef;
   }
 
-  .article-info {
+  // Элемент: info
+  &__info {
     margin-bottom: 1rem;
   }
 
-  .annotation-count {
+  // Элемент: annotation-count
+  &__annotation-count {
     display: inline-flex;
     align-items: center;
     padding: 0.5rem 1rem;
@@ -171,47 +196,50 @@
     font-size: 0.9rem;
     color: #495057;
   }
-}
 
-.article-content {
-  line-height: 1.8;
-  font-size: 1.1rem;
-  white-space: pre-wrap;
-  word-break: break-word;
-  cursor: text;
-  user-select: text;
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  touch-action: manipulation; // Разрешает касания для выделения текста
+  // Элемент: content
+  &__content {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+    cursor: text;
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    touch-action: manipulation; // Разрешает касания для выделения текста
 
-  ::ng-deep .annotated-text {
-    cursor: pointer;
-    padding: 2px 0;
-    border-radius: 2px;
-    transition: filter 0.2s ease;
+    ::ng-deep .annotated-text {
+      cursor: pointer;
+      padding: 2px 0;
+      border-radius: 2px;
+      transition: filter 0.2s ease;
 
-    &:hover {
-      filter: brightness(0.95);
-    }
+      &:hover {
+        filter: brightness(0.95);
+      }
 
-    // Для мобильных устройств - активное состояние при касании
-    &:active {
-      filter: brightness(0.9);
+      // Для мобильных устройств - активное состояние при касании
+      &:active {
+        filter: brightness(0.9);
+      }
     }
   }
-}
 
-.selection-hint {
-  margin-top: 2rem;
-  padding: 1rem;
-  background: #fff3cd;
-  border-radius: 8px;
-  color: #856404;
-  font-size: 0.95rem;
-  text-align: center;
+  // Элемент: hint
+  &__hint {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #fff3cd;
+    border-radius: 8px;
+    color: #856404;
+    font-size: 0.95rem;
+    text-align: center;
+  }
 
-  .mobile-hint {
+  // Элемент: hint-mobile
+  &__hint-mobile {
     display: none; // Скрыто на десктопе, показывается на мобильных
   }
 }
@@ -219,7 +247,7 @@
 // Mobile-specific improvements for text selection
 @media (hover: none) and (pointer: coarse) {
   // Стили только для сенсорных устройств
-  .article-content {
+  .article-view__content {
     -webkit-tap-highlight-color: transparent;
 
     // Улучшение выделения текста на мобильных
@@ -228,7 +256,7 @@
     }
   }
 
-  .selection-hint .mobile-hint {
+  .article-view__hint-mobile {
     display: inline; // Показываем подсказку для мобильных
   }
 
@@ -239,7 +267,7 @@
   }
 }
 
-// Modal
+// Блок: modal-overlay
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -254,6 +282,7 @@
   padding: 1rem;
 }
 
+// Блок: modal
 .modal {
   background: white;
   border-radius: 12px;
@@ -262,51 +291,57 @@
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-}
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid #e9ecef;
+  // Элемент: header
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+  }
 
-  h3 {
+  // Элемент: title
+  &__title {
     margin: 0;
     font-size: 1.25rem;
     color: #333;
   }
-}
 
-.btn-close {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #666;
-  padding: 0;
-  line-height: 1;
+  // Элемент: close
+  &__close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+    line-height: 1;
 
-  &:hover {
-    color: #333;
-  }
-}
-
-.modal-body {
-  padding: 1.5rem;
-}
-
-.selected-text-preview {
-  margin-bottom: 1.5rem;
-
-  label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: #333;
+    &:hover {
+      color: #333;
+    }
   }
 
-  .selected-text {
+  // Элемент: body
+  &__body {
+    padding: 1.5rem;
+  }
+
+  // Элемент: selected-text
+  &__selected-text {
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #333;
+    }
+  }
+
+  // Элемент: selected-text-content
+  &__selected-text-content {
     background: #f8f9fa;
     padding: 1rem;
     border-radius: 8px;
@@ -316,57 +351,45 @@
     word-break: break-word;
     white-space: pre-wrap;
   }
-}
 
-.color-picker {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.color-option {
-  width: 40px;
-  height: 40px;
-  border: 3px solid transparent;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &:hover {
-    transform: scale(1.1);
+  // Элемент: color-picker
+  &__color-picker {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
   }
 
-  &.selected {
-    border-color: #333;
-    box-shadow: 0 0 0 2px white, 0 0 0 4px #333;
+  // Элемент: color-option
+  &__color-option {
+    width: 40px;
+    height: 40px;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    // Модификатор: selected
+    &--selected {
+      border-color: #333;
+      box-shadow: 0 0 0 2px white, 0 0 0 4px #333;
+    }
   }
-}
 
-.input-note {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 2px solid #e9ecef;
-  border-radius: 8px;
-  font-size: 1rem;
-  resize: vertical;
-  font-family: inherit;
-  transition: border-color 0.2s ease;
-
-  &:focus {
-    outline: none;
-    border-color: #4a90d9;
+  // Элемент: footer
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid #e9ecef;
   }
 }
 
-.modal-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  padding: 1.25rem 1.5rem;
-  border-top: 1px solid #e9ecef;
-}
-
-// Tooltip
+// Блок: tooltip
 .tooltip {
   position: fixed;
   background: #333;
@@ -393,93 +416,92 @@
 
 // Mobile responsive styles
 @media (max-width: 768px) {
-  .article-editor-container {
+  .article-editor {
     padding: 1rem;
+
+    &__header {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    &__edit,
+    &__view {
+      padding: 1.25rem;
+    }
   }
 
-  .header {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: stretch;
-  }
-
-  .btn {
+  .button {
     padding: 0.75rem 1rem;
     font-size: 0.95rem;
     justify-content: center;
   }
 
-  .edit-mode {
-    padding: 1.25rem;
-  }
-
-  .view-mode {
-    padding: 1.25rem;
-  }
-
-  .article {
-    .article-title {
+  .article-view {
+    &__title {
       font-size: 1.5rem;
     }
 
-    .article-meta {
+    &__meta {
       flex-direction: column;
       gap: 0.5rem;
     }
-  }
 
-  .article-content {
-    font-size: 1rem;
-  }
-
-  .form-actions {
-    flex-direction: column;
-    gap: 0.75rem;
-
-    .btn {
-      width: 100%;
+    &__content {
+      font-size: 1rem;
     }
   }
 
-  .input-title {
-    font-size: 1.1rem;
-  }
+  .form {
+    &__actions {
+      flex-direction: column;
+      gap: 0.75rem;
 
-  .input-content {
-    min-height: 250px;
+      .button {
+        width: 100%;
+      }
+    }
+
+    &__input--title {
+      font-size: 1.1rem;
+    }
+
+    &__input--content {
+      min-height: 250px;
+    }
   }
 
   .modal {
     max-width: 100%;
     margin: 0.5rem;
     border-radius: 8px;
-  }
 
-  .modal-header {
-    padding: 1rem;
+    &__header {
+      padding: 1rem;
 
-    h3 {
-      font-size: 1.1rem;
+      h3 {
+        font-size: 1.1rem;
+      }
     }
-  }
 
-  .modal-body {
-    padding: 1rem;
-  }
-
-  .modal-footer {
-    padding: 1rem;
-    flex-direction: column;
-    gap: 0.75rem;
-
-    .btn {
-      width: 100%;
+    &__body {
+      padding: 1rem;
     }
-  }
 
-  .color-option {
-    width: 36px;
-    height: 36px;
+    &__footer {
+      padding: 1rem;
+      flex-direction: column;
+      gap: 0.75rem;
+
+      .button {
+        width: 100%;
+      }
+    }
+
+    &__color-option {
+      width: 36px;
+      height: 36px;
+    }
   }
 
   .tooltip {
@@ -491,69 +513,68 @@
 }
 
 @media (max-width: 480px) {
-  .article-editor-container {
+  .article-editor {
     padding: 0.75rem;
-  }
 
-  .edit-mode {
-    padding: 1rem;
-  }
-
-  .view-mode {
-    padding: 1rem;
-  }
-
-  .article {
-    .article-title {
-      font-size: 1.25rem;
+    &__edit,
+    &__view {
+      padding: 1rem;
     }
   }
 
-  .article-content {
-    font-size: 0.95rem;
-    line-height: 1.7;
-  }
+  .article-view {
+    &__title {
+      font-size: 1.25rem;
+    }
 
-  .selection-hint {
-    padding: 0.75rem;
-    font-size: 0.9rem;
+    &__content {
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
 
-    .mobile-hint {
+    &__hint {
+      padding: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    &__hint-mobile {
       display: block;
       font-size: 0.85rem;
       opacity: 0.8;
       margin-top: 0.5rem;
     }
+
+    &__annotation-count {
+      font-size: 0.85rem;
+      padding: 0.4rem 0.75rem;
+    }
   }
 
-  .input-title {
-    font-size: 1rem;
-    padding: 0.625rem 0.875rem;
+  .form {
+    &__input--title {
+      font-size: 1rem;
+      padding: 0.625rem 0.875rem;
+    }
+
+    &__input--content {
+      min-height: 200px;
+      padding: 0.875rem;
+    }
+
+    &__input--note {
+      padding: 0.625rem 0.875rem;
+    }
   }
 
-  .input-content {
-    min-height: 200px;
-    padding: 0.875rem;
-  }
-
-  .btn {
+  .button {
     padding: 0.625rem 0.875rem;
     font-size: 0.9rem;
   }
 
-  .selected-text-preview {
-    .selected-text {
+  .modal {
+    &__selected-text-content {
       padding: 0.75rem;
       font-size: 0.9rem;
     }
-  }
-
-  .input-note {
-    padding: 0.625rem 0.875rem;
-  }
-
-  .annotation-count {
-    font-size: 0.85rem;
-    padding: 0.4rem 0.75rem;
   }
 }
