@@ -326,3 +326,163 @@
     border-bottom: 6px solid #333;
   }
 }
+
+// Mobile responsive styles
+@media (max-width: 768px) {
+  .article-editor-container {
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    justify-content: center;
+  }
+
+  .edit-mode {
+    padding: 1.25rem;
+  }
+
+  .view-mode {
+    padding: 1.25rem;
+  }
+
+  .article {
+    .article-title {
+      font-size: 1.5rem;
+    }
+
+    .article-meta {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+
+  .article-content {
+    font-size: 1rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .btn {
+      width: 100%;
+    }
+  }
+
+  .input-title {
+    font-size: 1.1rem;
+  }
+
+  .input-content {
+    min-height: 250px;
+  }
+
+  .modal {
+    max-width: 100%;
+    margin: 0.5rem;
+    border-radius: 8px;
+  }
+
+  .modal-header {
+    padding: 1rem;
+
+    h3 {
+      font-size: 1.1rem;
+    }
+  }
+
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .modal-footer {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .btn {
+      width: 100%;
+    }
+  }
+
+  .color-option {
+    width: 36px;
+    height: 36px;
+  }
+
+  .tooltip {
+    max-width: calc(100vw - 2rem);
+    left: 1rem !important;
+    right: 1rem !important;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .article-editor-container {
+    padding: 0.75rem;
+  }
+
+  .edit-mode {
+    padding: 1rem;
+  }
+
+  .view-mode {
+    padding: 1rem;
+  }
+
+  .article {
+    .article-title {
+      font-size: 1.25rem;
+    }
+  }
+
+  .article-content {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .selection-hint {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .input-title {
+    font-size: 1rem;
+    padding: 0.625rem 0.875rem;
+  }
+
+  .input-content {
+    min-height: 200px;
+    padding: 0.875rem;
+  }
+
+  .btn {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.9rem;
+  }
+
+  .selected-text-preview {
+    .selected-text {
+      padding: 0.75rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  .input-note {
+    padding: 0.625rem 0.875rem;
+  }
+
+  .annotation-count {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
+  }
+}
