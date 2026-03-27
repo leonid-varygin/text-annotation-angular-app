@@ -56,6 +56,449 @@ npm test -- --no-watch
 npm test -- --no-watch --browsers=ChromeHeadless
 ```
 
+- **Test Runner**: Karma 6.4.4
+- **Testing Framework**: Jasmine
+- **Моки**: Jasmine Spy Objects (`jasmine.createSpyObj`)
+- **Async handling**: `fakeAsync` и `tick()` для тестирования асинхронных операций
+
+## 🌐 Деплой на GitHub Pages
+
+Приложение настроено для развертывания на GitHub Pages с использованием `angular-cli-ghpages`.
+
+### Автоматический деплой
+
+```bash
+ng deploy --base-href=/text-annotation-app/
+```
+
+Замените `text-annotation-app` на название вашего репозитория.
+
+### Результат
+
+После успешного деплоя приложение будет доступно по адресу:
+```
+https://<username>.github.io/text-annotation-app/
+```
+
+### Настройка репозитория
+
+1. Откройте настройки репозитория на GitHub
+2. Перейдите в **Settings** → **Pages**
+3. Убедитесь, что Source установлен на `gh-pages` branch
+
+### Примечание о маршрутизации
+
+Приложение использует `HashLocationStrategy` для корректной работы маршрутизации на GitHub Pages. URL будут иметь вид:
+```
+https://<username>.github.io/text-annotation-app/#/articles/123
+```
+
+## 📁 Структура проекта
+
+```
+text-annotation-app/
+├── angular.json                   # Конфигурация Angular CLI
+├── package.json                   # Зависимости и скрипты npm
+├── tsconfig.json                  # Базовая конфигурация TypeScript
+├── tsconfig.app.json              # Конфигурация TS для приложения
+├── tsconfig.spec.json             # Конфигурация TS для тестов
+├── .editorconfig                  # Настройки редактора
+├── .gitignore                     # Исключения Git
+├── README.md                      # Документация проекта
+│
+├── public/
+│   └── favicon.ico                # Иконка сайта
+│
+└── src/
+    ├── index.html                 # Главный HTML-файл
+    ├── main.ts                    # Точка входа приложения
+    ├── styles.scss                # Глобальные стили
+    │
+    └── app/
+        ├── app.component.ts       # Корневой компонент
+        ├── app.component.html     # Шаблон корневого компонента
+        ├── app.component.spec.ts  # Тесты корневого компонента (3 теста)
+        ├── app.config.ts          # Конфигурация приложения
+        ├── app.routes.ts          # Маршрутизация
+        │
+        ├── models/
+        │   └── article.model.ts   # Интерфейсы Article, Annotation, AnnotationCreate
+        │
+        ├── services/
+        │   ├── article.service.ts       # Сервис управления статьями
+        │   ├── article.service.spec.ts  # Тесты ArticleService (17 тестов)
+        │   ├── annotation.service.ts    # Сервис управления аннотациями
+        │   ├── annotation.service.spec.ts # Тесты AnnotationService (17 тестов)
+        │   ├── theme.service.ts         # Сервис управления темами
+        │   └── theme.service.spec.ts    # Тесты ThemeService
+        │
+        └── components/
+            ├── article-list/
+            │   ├── article-list.component.ts       # Компонент списка статей
+            │   ├── article-list.component.html     # Шаблон
+            │   ├── article-list.component.scss     # Стили
+            │   └── article-list.component.spec.ts  # Тесты (10 тестов)
+            │
+            ├── article-editor/
+            │   ├── article-editor.component.ts       # Компонент редактора
+            │   ├── article-editor.component.html     # Шаблон
+            │   ├── article-editor.component.scss     # Стили
+            │   └── article-editor.component.spec.ts  # Тесты (21 тест)
+            │
+            └── theme-switcher/
+                ├── theme-switcher.component.ts       # Компонент переключателя тем
+                ├── theme-switcher.component.html     # Шаблон
+                ├── theme-switcher.component.scss     # Стили
+                └── theme-switcher.component.spec.ts  # Тесты
+```
+
+### 📂 Описание директорий
+
+| Директория | Назначение |
+|------------|------------|
+| `src/app/models/` | TypeScript интерфейсы и типы данных |
+| `src/app/services/` | Сервисы для работы с данными (state management, localStorage) |
+| `src/app/components/` | Angular компоненты (standalone) |
+| `public/` | Статические ресурсы |
+
+## 🎯 Функциональность
+
+### Работа со статьями
+
+| Действие | Описание |
+|----------|----------|
+| Создать статью | Кнопка "Создать статью" на главной странице |
+| Редактировать статью | Кнопка ✏️ на карточке статьи |
+| Удалить статью | Кнопка 🗑️ на карточке статьи |
+| Просмотреть статью | Клик по карточке статьи |
+
+### Работа с аннотациями
+
+1. **Создание аннотации**:
+   - Откройте статью в режиме просмотра
+   - Выделите фрагмент текста
+   - В появившемся модальном окне выберите цвет и добавьте примечание
+   - Нажмите "Создать аннотацию"
+
+2. **Просмотр аннотации**:
+   - Наведите курсор на подсвеченный текст
+   - Примечание отобразится во всплывающей подсказке
+
+3. **Редактирование/Удаление аннотации**:
+   - Кликните по аннотированному тексту
+   - Введите `edit` для редактирования или `delete` для удаления
+
+---
+
+## 🌓 Переключатель тем
+
+Приложение поддерживает три режима отображения: светлая тема, тёмная тема и автоматический режим.
+
+### 📁 Структура компонента
+
+```
+src/app/components/theme-switcher/
+├── theme-switcher.component.ts       # Логика компонента
+├── theme-switcher.component.html     # Шаблон кнопки
+├── theme-switcher.component.scss     # Стили кнопки
+└── theme-switcher.component.spec.ts  # Тесты
+```
+
+### 📁 Структура сервиса
+
+```
+src/app/services/
+├── theme.service.ts         # Сервис управления темами
+└── theme.service.spec.ts    # Тесты сервиса
+```
+
+### 🎨 Режимы темы
+
+| Режим | Иконка | Описание |
+|-------|--------|----------|
+| `light` | ☀️ | Светлая тема |
+| `dark` | 🌙 | Тёмная тема |
+| `auto` | 💻 | Автоматическое определение по системным настройкам |
+
+### ⚙️ Принцип работы
+
+#### ThemeService
+
+Сервис `ThemeService` управляет темой приложения и предоставляет следующие возможности:
+
+**Observable потоки:**
+- `theme$` — текущий выбранный режим темы (`light` | `dark` | `auto`)
+- `effectiveTheme$` — эффективная тема (`light` | `dark`), фактически применённая
+
+**Методы:**
+| Метод | Описание |
+|-------|----------|
+| `setTheme(theme)` | Установить конкретную тему |
+| `toggleTheme()` | Переключить тему по кругу: light → dark → auto → light |
+| `currentTheme` | Getter для текущего режима |
+| `effectiveTheme` | Getter для эффективной темы |
+
+**Хранение:**
+- Тема сохраняется в `localStorage` с ключом `text_annotation_theme`
+- По умолчанию используется режим `auto`
+
+**Применение темы:**
+- Добавляет класс `dark-theme` или `light-theme` на `<html>` элемент
+- Обновляет `meta[name="theme-color"]` для мобильных браузеров
+- Реагирует на изменения системной темы через `matchMedia` (в режиме `auto`)
+
+#### ThemeSwitcherComponent
+
+Компонент отображает кнопку с иконкой текущей темы:
+
+```html
+<button class="theme-toggle" (click)="toggleTheme()">
+  <span class="theme-toggle__icon">{{ icon }}</span>
+</button>
+```
+
+**Функции компонента:**
+- Отображение иконки текущей темы (☀️ / 🌙 / 💻)
+- Подсказка с названием темы (`title`, `aria-label`)
+- Анимация при наведении (поворот иконки на 15°)
+- Адаптивный размер для мобильных устройств
+
+### 🔄 Алгоритм переключения
+
+```
+Клик по кнопке
+      ↓
+toggleTheme() в ThemeService
+      ↓
+light → dark → auto → light (цикл)
+      ↓
+Сохранение в localStorage
+      ↓
+Вычисление эффективной темы:
+  - light → light
+  - dark → dark
+  - auto → проверка prefers-color-scheme
+      ↓
+Применение классов к <html>:
+  - dark-theme / light-theme
+      ↓
+Обновление meta theme-color
+```
+
+### 🎯 CSS переменные для тем
+
+Темы используют CSS custom properties для динамической смены цветов:
+
+```scss
+:root {
+  --color-bg-primary: #f5f5f5;
+  --color-text-primary: #333;
+  // ...
+}
+
+.dark-theme {
+  --color-bg-primary: #1a1a2e;
+  --color-text-primary: #e0e0e0;
+  // ...
+}
+```
+
+### ♿ Доступность
+
+- Атрибут `aria-label` содержит название текущей темы
+- Атрибут `title` показывает подсказку при наведении
+- Кнопка доступна для клавиатурной навигации
+- Визуальный фокус при `:focus-visible`
+
+---
+
+## 🔧 Технические детали
+
+### Технологии
+
+| Технология | Версия | Назначение |
+|------------|--------|------------|
+| Angular | 18.2.0 | Frontend фреймворк |
+| TypeScript | 5.5.2 | Язык программирования |
+| RxJS | 7.8.0 | Реактивность |
+| SCSS | - | Стили |
+
+### Архитектурные решения
+
+- **Standalone Components**: использование автономных компонентов без NgModules
+- **Reactive State Management**: управление состоянием через BehaviorSubject
+- **Dependency Injection**: сервисы предоставляются через `providedIn: 'root'`
+- **Range API**: для работы с выделением текста и позиционированием аннотаций
+- **localStorage API**: для персистентного хранения данных
+
+### Маршрутизация
+
+| Путь | Компонент | Описание |
+|------|-----------|----------|
+| `/` | ArticleListComponent | Список статей |
+| `/articles/new` | ArticleEditorComponent | Создание новой статьи |
+| `/articles/:id` | ArticleEditorComponent | Просмотр статьи |
+| `/articles/:id/edit` | ArticleEditorComponent | Редактирование статьи |
+
+## ♿ Доступность (Accessibility)
+
+Приложение разработано с учётом требований доступности:
+
+- **Поддержка скринридеров** — ARIA-атрибуты (`aria-label`, `aria-live`, `aria-describedby`), live regions для динамических объявлений
+- **Семантическая разметка** — использование `<main>`, `<article>`, `<nav>`, `<time>`, `<section>`
+- **Клавиатурная навигация** — все интерактивные элементы доступны с клавиатуры (`tabindex`, обработка `keydown`)
+- **Модальные окна** — правильный фокус, `aria-modal`, ловушка фокуса
+- **Визуально скрытый текст** — класс `.visually-hidden` для информации скринридерам
+
+## 🎯 БЭМ-методология
+
+Для именования CSS-классов используется **БЭМ** (Блок—Элемент—Модификатор):
+
+| Пример | Описание |
+|--------|----------|
+| `article-card` | Блок |
+| `article-card__title` | Элемент |
+| `button--primary` | Модификатор |
+| `modal__color-option--selected` | Элемент с модификатором |
+
+## 🎨 SCSS Переменные
+
+Проект использует централизованную систему дизайна на основе SCSS переменных. Все переменные определены в файле `src/styles/_variables.scss`.
+
+### Использование
+
+```scss
+@use '../../../styles/variables' as *;
+
+.my-component {
+  color: $color-text-primary;
+  background: $color-bg-card;
+  border-radius: $border-radius-lg;
+}
+```
+
+### Цветовая палитра
+
+| Категория | Переменная | Значение | Описание |
+|-----------|------------|----------|----------|
+| **Primary** | `$color-primary` | `#4a90d9` | Основной акцентный цвет |
+| | `$color-primary-hover` | `#357abd` | Hover-состояние primary |
+| | `$color-primary-light` | `rgba(74, 144, 217, 0.25)` | Светлый оттенок |
+| | `$color-primary-transparent` | `rgba(74, 144, 217, 0.3)` | Прозрачный оттенок |
+| **Text** | `$color-text-primary` | `#333` | Основной текст |
+| | `$color-text-secondary` | `#666` | Вторичный текст |
+| | `$color-text-tertiary` | `#888` | Третичный текст |
+| | `$color-text-muted` | `#495057` | Приглушённый текст |
+| **Background** | `$color-bg-primary` | `#f5f5f5` | Фон страницы |
+| | `$color-bg-secondary` | `#f8f9fa` | Вторичный фон |
+| | `$color-bg-card` | `white` | Фон карточек |
+| **Borders** | `$color-border-primary` | `#e9ecef` | Границы |
+| | `$color-border-hover` | `#dee2e6` | Hover-границы |
+| **Status** | `$color-danger` | `#dc3545` | Ошибки/удаление |
+| | `$color-warning` | `#fff3cd` | Предупреждения |
+
+### Типографика
+
+| Переменная | Значение | Описание |
+|------------|----------|----------|
+| `$font-family-base` | System fonts | Базовый шрифт |
+| `$font-size-xs` | `0.85rem` | Очень маленький |
+| `$font-size-sm` | `0.9rem` | Маленький |
+| `$font-size-base` | `1rem` | Базовый |
+| `$font-size-md` | `1.1rem` | Средний |
+| `$font-size-lg` | `1.25rem` | Большой |
+| `$font-size-xl` | `1.5rem` | Очень большой |
+| `$font-size-2xl` | `2rem` | Огромный |
+
+### Отступы
+
+| Переменная | Значение |
+|------------|----------|
+| `$spacing-xs` | `0.25rem` |
+| `$spacing-sm` | `0.5rem` |
+| `$spacing-md` | `0.75rem` |
+| `$spacing-lg` | `1rem` |
+| `$spacing-xl` | `1.5rem` |
+| `$spacing-2xl` | `2rem` |
+| `$spacing-3xl` | `3rem` |
+
+### Скругления
+
+| Переменная | Значение |
+|------------|----------|
+| `$border-radius-sm` | `2px` |
+| `$border-radius-md` | `4px` |
+| `$border-radius-lg` | `8px` |
+| `$border-radius-xl` | `12px` |
+| `$border-radius-xl-2` | `20px` |
+| `$border-radius-full` | `50%` |
+
+### Тени
+
+| Переменная | Описание |
+|------------|----------|
+| `$shadow-sm` | Маленькая тень (карточки) |
+| `$shadow-md` | Средняя тень (hover) |
+| `$shadow-lg` | Большая тень (модальные окна) |
+| `$shadow-focus` | Тень фокуса для accessibility |
+
+### Брейкпоинты
+
+| Переменная | Значение | Описание |
+|------------|----------|----------|
+| `$breakpoint-sm` | `480px` | Мобильные устройства |
+| `$breakpoint-md` | `768px` | Планшеты |
+
+### Z-Index
+
+| Переменная | Значение | Описание |
+|------------|----------|----------|
+| `$z-index-modal` | `1000` | Модальные окна |
+| `$z-index-tooltip` | `1100` | Всплывающие подсказки |
+| `$z-index-skip-link` | `9999` | Skip-link для a11y |
+
+---
+
+## 🎨 Цвета аннотаций
+
+| Цвет | Код | Название |
+|------|-----|----------|
+| Желтый | `#ffeb3b` | Желтый |
+| Зеленый | `#4caf50` | Зеленый |
+| Синий | `#2196f3` | Синий |
+| Оранжевый | `#ff9800` | Оранжевый |
+| Розовый | `#e91e63` | Розовый |
+| Фиолетовый | `#9c27b0` | Фиолетовый |
+
+## 📊 Модели данных
+
+### Article
+
+```typescript
+interface Article {
+  id: string;
+  title: string;
+  content: string;
+  createdAt: number;
+  updatedAt: number;
+}
+```
+
+### Annotation
+
+```typescript
+interface Annotation {
+  id: string;
+  articleId: string;
+  startIndex: number;
+  endIndex: number;
+  selectedText: string;
+  color: string;
+  note: string;
+  createdAt: number;
+}
+```
+
 ### Покрытие тестами
 
 Проект содержит **68 unit-тестов**, покрывающих все ключевые компоненты и сервисы.
@@ -253,318 +696,6 @@ ERROR: 'Error parsing articles from localStorage', SyntaxError: Unexpected token
 **Это нормально!** Эти сообщения появляются из тестов `should handle invalid JSON in localStorage gracefully`, которые специально проверяют обработку повреждённых данных. Сервисы корректно восстанавливаются и возвращают пустой массив.
 
 ### 🛠️ Технические детали тестов
-
-- **Test Runner**: Karma 6.4.4
-- **Testing Framework**: Jasmine
-- **Моки**: Jasmine Spy Objects (`jasmine.createSpyObj`)
-- **Async handling**: `fakeAsync` и `tick()` для тестирования асинхронных операций
-
-## 🌐 Деплой на GitHub Pages
-
-Приложение настроено для развертывания на GitHub Pages с использованием `angular-cli-ghpages`.
-
-### Автоматический деплой
-
-```bash
-ng deploy --base-href=/text-annotation-app/
-```
-
-Замените `text-annotation-app` на название вашего репозитория.
-
-### Результат
-
-После успешного деплоя приложение будет доступно по адресу:
-```
-https://<username>.github.io/text-annotation-app/
-```
-
-### Настройка репозитория
-
-1. Откройте настройки репозитория на GitHub
-2. Перейдите в **Settings** → **Pages**
-3. Убедитесь, что Source установлен на `gh-pages` branch
-
-### Примечание о маршрутизации
-
-Приложение использует `HashLocationStrategy` для корректной работы маршрутизации на GitHub Pages. URL будут иметь вид:
-```
-https://<username>.github.io/text-annotation-app/#/articles/123
-```
-
-## 📁 Структура проекта
-
-```
-text-annotation-app/
-├── angular.json                   # Конфигурация Angular CLI
-├── package.json                   # Зависимости и скрипты npm
-├── tsconfig.json                  # Базовая конфигурация TypeScript
-├── tsconfig.app.json              # Конфигурация TS для приложения
-├── tsconfig.spec.json             # Конфигурация TS для тестов
-├── .editorconfig                  # Настройки редактора
-├── .gitignore                     # Исключения Git
-├── README.md                      # Документация проекта
-│
-├── public/
-│   └── favicon.ico                # Иконка сайта
-│
-└── src/
-    ├── index.html                 # Главный HTML-файл
-    ├── main.ts                    # Точка входа приложения
-    ├── styles.scss                # Глобальные стили
-    │
-    └── app/
-        ├── app.component.ts       # Корневой компонент
-        ├── app.component.html     # Шаблон корневого компонента
-        ├── app.component.spec.ts  # Тесты корневого компонента (3 теста)
-        ├── app.config.ts          # Конфигурация приложения
-        ├── app.routes.ts          # Маршрутизация
-        │
-        ├── models/
-        │   └── article.model.ts   # Интерфейсы Article, Annotation, AnnotationCreate
-        │
-        ├── services/
-        │   ├── article.service.ts       # Сервис управления статьями
-        │   ├── article.service.spec.ts  # Тесты ArticleService (17 тестов)
-        │   ├── annotation.service.ts    # Сервис управления аннотациями
-        │   └── annotation.service.spec.ts # Тесты AnnotationService (17 тестов)
-        │
-        └── components/
-            ├── article-list/
-            │   ├── article-list.component.ts       # Компонент списка статей
-            │   ├── article-list.component.html     # Шаблон
-            │   ├── article-list.component.scss     # Стили
-            │   └── article-list.component.spec.ts  # Тесты (10 тестов)
-            │
-            └── article-editor/
-                ├── article-editor.component.ts       # Компонент редактора
-                ├── article-editor.component.html     # Шаблон
-                ├── article-editor.component.scss     # Стили
-                └── article-editor.component.spec.ts  # Тесты (21 тест)
-```
-
-### 📂 Описание директорий
-
-| Директория | Назначение |
-|------------|------------|
-| `src/app/models/` | TypeScript интерфейсы и типы данных |
-| `src/app/services/` | Сервисы для работы с данными (state management, localStorage) |
-| `src/app/components/` | Angular компоненты (standalone) |
-| `public/` | Статические ресурсы |
-
-## 🎯 Функциональность
-
-### Работа со статьями
-
-| Действие | Описание |
-|----------|----------|
-| Создать статью | Кнопка "Создать статью" на главной странице |
-| Редактировать статью | Кнопка ✏️ на карточке статьи |
-| Удалить статью | Кнопка 🗑️ на карточке статьи |
-| Просмотреть статью | Клик по карточке статьи |
-
-### Работа с аннотациями
-
-1. **Создание аннотации**:
-   - Откройте статью в режиме просмотра
-   - Выделите фрагмент текста
-   - В появившемся модальном окне выберите цвет и добавьте примечание
-   - Нажмите "Создать аннотацию"
-
-2. **Просмотр аннотации**:
-   - Наведите курсор на подсвеченный текст
-   - Примечание отобразится во всплывающей подсказке
-
-3. **Редактирование/Удаление аннотации**:
-   - Кликните по аннотированному тексту
-   - Введите `edit` для редактирования или `delete` для удаления
-
-## 🔧 Технические детали
-
-### Технологии
-
-| Технология | Версия | Назначение |
-|------------|--------|------------|
-| Angular | 18.2.0 | Frontend фреймворк |
-| TypeScript | 5.5.2 | Язык программирования |
-| RxJS | 7.8.0 | Реактивное программирование |
-| SCSS | - | Стилизация |
-
-### Архитектурные решения
-
-- **Standalone Components**: использование автономных компонентов без NgModules
-- **Reactive State Management**: управление состоянием через BehaviorSubject
-- **Dependency Injection**: сервисы предоставляются через `providedIn: 'root'`
-- **HashLocationStrategy**: для работы маршрутизации на статических хостингах
-- **Range API**: для работы с выделением текста и позиционированием аннотаций
-- **localStorage API**: для персистентного хранения данных
-
-### Маршрутизация
-
-| Путь | Компонент | Описание |
-|------|-----------|----------|
-| `/` | ArticleListComponent | Список статей |
-| `/articles/new` | ArticleEditorComponent | Создание новой статьи |
-| `/articles/:id` | ArticleEditorComponent | Просмотр статьи |
-| `/articles/:id/edit` | ArticleEditorComponent | Редактирование статьи |
-
-## ♿ Доступность (Accessibility)
-
-Приложение разработано с учётом требований доступности:
-
-- **Поддержка скринридеров** — ARIA-атрибуты (`aria-label`, `aria-live`, `aria-describedby`), live regions для динамических объявлений
-- **Семантическая разметка** — использование `<main>`, `<article>`, `<nav>`, `<time>`, `<section>`
-- **Клавиатурная навигация** — все интерактивные элементы доступны с клавиатуры (`tabindex`, обработка `keydown`)
-- **Модальные окна** — правильный фокус, `aria-modal`, ловушка фокуса
-- **Визуально скрытый текст** — класс `.visually-hidden` для информации скринридерам
-
-## 🎯 БЭМ-методология
-
-Для именования CSS-классов используется **БЭМ** (Блок—Элемент—Модификатор):
-
-| Пример | Описание |
-|--------|----------|
-| `article-card` | Блок |
-| `article-card__title` | Элемент |
-| `button--primary` | Модификатор |
-| `modal__color-option--selected` | Элемент с модификатором |
-
-## 🎨 SCSS Переменные
-
-Проект использует централизованную систему дизайна на основе SCSS переменных. Все переменные определены в файле `src/styles/_variables.scss`.
-
-### Использование
-
-```scss
-@use '../../../styles/variables' as *;
-
-.my-component {
-  color: $color-text-primary;
-  background: $color-bg-card;
-  border-radius: $border-radius-lg;
-}
-```
-
-### Цветовая палитра
-
-| Категория | Переменная | Значение | Описание |
-|-----------|------------|----------|----------|
-| **Primary** | `$color-primary` | `#4a90d9` | Основной акцентный цвет |
-| | `$color-primary-hover` | `#357abd` | Hover-состояние primary |
-| | `$color-primary-light` | `rgba(74, 144, 217, 0.25)` | Светлый оттенок |
-| | `$color-primary-transparent` | `rgba(74, 144, 217, 0.3)` | Прозрачный оттенок |
-| **Text** | `$color-text-primary` | `#333` | Основной текст |
-| | `$color-text-secondary` | `#666` | Вторичный текст |
-| | `$color-text-tertiary` | `#888` | Третичный текст |
-| | `$color-text-muted` | `#495057` | Приглушённый текст |
-| **Background** | `$color-bg-primary` | `#f5f5f5` | Фон страницы |
-| | `$color-bg-secondary` | `#f8f9fa` | Вторичный фон |
-| | `$color-bg-card` | `white` | Фон карточек |
-| **Borders** | `$color-border-primary` | `#e9ecef` | Границы |
-| | `$color-border-hover` | `#dee2e6` | Hover-границы |
-| **Status** | `$color-danger` | `#dc3545` | Ошибки/удаление |
-| | `$color-warning` | `#fff3cd` | Предупреждения |
-
-### Типографика
-
-| Переменная | Значение | Описание |
-|------------|----------|----------|
-| `$font-family-base` | System fonts | Базовый шрифт |
-| `$font-size-xs` | `0.85rem` | Очень маленький |
-| `$font-size-sm` | `0.9rem` | Маленький |
-| `$font-size-base` | `1rem` | Базовый |
-| `$font-size-md` | `1.1rem` | Средний |
-| `$font-size-lg` | `1.25rem` | Большой |
-| `$font-size-xl` | `1.5rem` | Очень большой |
-| `$font-size-2xl` | `2rem` | Огромный |
-
-### Отступы
-
-| Переменная | Значение |
-|------------|----------|
-| `$spacing-xs` | `0.25rem` |
-| `$spacing-sm` | `0.5rem` |
-| `$spacing-md` | `0.75rem` |
-| `$spacing-lg` | `1rem` |
-| `$spacing-xl` | `1.5rem` |
-| `$spacing-2xl` | `2rem` |
-| `$spacing-3xl` | `3rem` |
-
-### Скругления
-
-| Переменная | Значение |
-|------------|----------|
-| `$border-radius-sm` | `2px` |
-| `$border-radius-md` | `4px` |
-| `$border-radius-lg` | `8px` |
-| `$border-radius-xl` | `12px` |
-| `$border-radius-xl-2` | `20px` |
-| `$border-radius-full` | `50%` |
-
-### Тени
-
-| Переменная | Описание |
-|------------|----------|
-| `$shadow-sm` | Маленькая тень (карточки) |
-| `$shadow-md` | Средняя тень (hover) |
-| `$shadow-lg` | Большая тень (модальные окна) |
-| `$shadow-focus` | Тень фокуса для accessibility |
-
-### Брейкпоинты
-
-| Переменная | Значение | Описание |
-|------------|----------|----------|
-| `$breakpoint-sm` | `480px` | Мобильные устройства |
-| `$breakpoint-md` | `768px` | Планшеты |
-
-### Z-Index
-
-| Переменная | Значение | Описание |
-|------------|----------|----------|
-| `$z-index-modal` | `1000` | Модальные окна |
-| `$z-index-tooltip` | `1100` | Всплывающие подсказки |
-| `$z-index-skip-link` | `9999` | Skip-link для a11y |
-
----
-
-## 🎨 Цвета аннотаций
-
-| Цвет | Код | Название |
-|------|-----|----------|
-| Желтый | `#ffeb3b` | Желтый |
-| Зеленый | `#4caf50` | Зеленый |
-| Синий | `#2196f3` | Синий |
-| Оранжевый | `#ff9800` | Оранжевый |
-| Розовый | `#e91e63` | Розовый |
-| Фиолетовый | `#9c27b0` | Фиолетовый |
-
-## 📊 Модели данных
-
-### Article
-
-```typescript
-interface Article {
-  id: string;
-  title: string;
-  content: string;
-  createdAt: number;
-  updatedAt: number;
-}
-```
-
-### Annotation
-
-```typescript
-interface Annotation {
-  id: string;
-  articleId: string;
-  startIndex: number;
-  endIndex: number;
-  selectedText: string;
-  color: string;
-  note: string;
-  createdAt: number;
-}
-```
 
 ## 🔒 Хранение данных
 

@@ -44,7 +44,7 @@ describe('ArticleEditorComponent', () => {
     paramsSubject = new Subject<{ id?: string }>();
     queryParamsSubject = new Subject<{ edit?: string }>();
 
-    articleServiceMock.getById.and.returnValue(of(mockArticle));
+    articleServiceMock.getById.and.callFake(() => of({ ...mockArticle }));
     articleServiceMock.create.and.returnValue(of(mockArticle));
     articleServiceMock.update.and.callFake((id: string, updates: Partial<Article>) => {
       return of({ ...mockArticle, ...updates, updatedAt: Date.now() });
