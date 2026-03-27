@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class ArticleListComponent implements OnInit {
   articles$!: Observable<Article[]>;
+  announcement: string = '';
 
   constructor(
     private articleService: ArticleService,
@@ -22,6 +23,33 @@ export class ArticleListComponent implements OnInit {
 
   ngOnInit(): void {
     this.articles$ = this.articleService.getAll();
+  }
+
+  /**
+   * Обработка клавиатурной навигации для карточек статей
+   */
+  onArticleKeydown(event: KeyboardEvent, articleId: string): void {
+    switch (event.key) {
+      case 'Enter':
+      case ' ':
+        event.preventDefault();
+        this.viewArticle(articleId);
+        break;
+      default:
+        // Другие клавиши не обрабатываем
+        break;
+    }
+  }
+
+  /**
+   * Анонс для скринридера
+   */
+  announce(message: string): void {
+    this.announcement = message;
+    // Сбрасываем после анонса
+    setTimeout(() => {
+      this.announcement = '';
+    }, 1000);
   }
 
   createNewArticle(): void {

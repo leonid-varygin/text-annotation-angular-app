@@ -27,6 +27,22 @@
   cursor: pointer;
   transition: all 0.2s ease;
 
+  // Улучшенная видимость фокуса
+  &:focus {
+    outline: 3px solid #4a90d9;
+    outline-offset: 2px;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 3px solid #4a90d9;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(74, 144, 217, 0.25);
+  }
+
   &.btn-primary {
     background: #4a90d9;
     color: white;
@@ -76,6 +92,12 @@
   &:focus {
     outline: none;
     border-color: #4a90d9;
+    box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.25);
+  }
+
+  // Состояние ошибки для доступности
+  &[aria-invalid="true"] {
+    // border-color: #dc3545;
   }
 }
 
@@ -94,6 +116,12 @@
   &:focus {
     outline: none;
     border-color: #4a90d9;
+    box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.25);
+  }
+
+  // Состояние ошибки для доступности
+  &[aria-invalid="true"] {
+    // border-color: #dc3545;
   }
 }
 

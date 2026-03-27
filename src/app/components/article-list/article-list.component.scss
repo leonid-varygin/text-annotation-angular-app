@@ -70,6 +70,13 @@
   }
 }
 
+// Список статей (ul)
+.articles-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 .article-card {
   background: white;
   border-radius: 12px;
@@ -82,6 +89,23 @@
   &:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
+  }
+
+  // Улучшенная видимость фокуса для клавиатурной навигации
+  &:focus {
+    outline: 3px solid #4a90d9;
+    outline-offset: 2px;
+    box-shadow: 0 4px 16px rgba(74, 144, 217, 0.3);
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 3px solid #4a90d9;
+    outline-offset: 2px;
+    box-shadow: 0 4px 16px rgba(74, 144, 217, 0.3);
   }
 }
 

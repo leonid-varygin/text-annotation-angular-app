@@ -1,62 +1,107 @@
-<div class="article-editor-container">
+<main class="article-editor-container" id="main-content" role="main" aria-labelledby="editor-title">
+  <!-- Live region для объявлений скринридеру -->
+  <div aria-live="polite" aria-atomic="true" class="visually-hidden">{{ announcement }}</div>
+
   <!-- Header -->
-  <header class="header">
-    <button class="btn btn-secondary" (click)="goBack()">
-      ← Назад к списку
-    </button>
+  <header class="header" role="banner">
+    <nav aria-label="Навигация по статье">
+      <button
+        class="btn btn-secondary"
+        (click)="goBack()"
+        aria-label="Вернуться к списку статей">
+        <span aria-hidden="true">←</span>
+        Назад к списку
+      </button>
+    </nav>
     <div class="header-actions" *ngIf="!isEditMode">
-      <button class="btn btn-primary" (click)="enterEditMode()">
-        ✏️ Редактировать
+      <button
+        class="btn btn-primary"
+        (click)="enterEditMode()"
+        aria-label="Редактировать статью">
+        <span aria-hidden="true">✏️</span>
+        Редактировать
       </button>
     </div>
   </header>
 
   <!-- Edit Mode -->
-  <div class="edit-mode" *ngIf="isEditMode">
+  <section class="edit-mode" *ngIf="isEditMode" aria-labelledby="edit-heading">
+    <h1 id="edit-heading" class="visually-hidden">Редактирование статьи</h1>
+
     <div class="form-group">
-      <label for="title">Заголовок</label>
+      <label for="title" class="form-label">
+        Заголовок
+        <span class="required" aria-label="обязательно">*</span>
+      </label>
       <input
         type="text"
         id="title"
         [(ngModel)]="title"
         placeholder="Введите заголовок статьи..."
         class="input-title"
+        aria-required="true"
+        [attr.aria-invalid]="title?.trim() === '' ? 'true' : 'false'"
+        aria-describedby="title-hint"
       />
+      <span id="title-hint" class="visually-hidden">Введите название вашей статьи</span>
     </div>
 
     <div class="form-group">
-      <label for="content">Содержание</label>
+      <label for="content" class="form-label">
+        Содержание
+        <span class="required" aria-label="обязательно">*</span>
+      </label>
       <textarea
         id="content"
         [(ngModel)]="content"
         placeholder="Введите текст статьи..."
         class="input-content"
         rows="15"
+        aria-required="true"
+        [attr.aria-invalid]="content?.trim() === '' ? 'true' : 'false'"
+        aria-describedby="content-hint"
       ></textarea>
+      <span id="content-hint" class="visually-hidden">Введите основной текст вашей статьи. Поддерживается выделение текста для добавления аннотаций.</span>
     </div>
 
-    <div class="form-actions">
-      <button class="btn btn-secondary" (click)="cancelEdit()">
+    <div class="form-actions" role="group" aria-label="Действия с формой">
+      <button
+        class="btn btn-secondary"
+        (click)="cancelEdit()"
+        aria-label="Отменить редактирование">
         Отмена
       </button>
-      <button class="btn btn-primary" (click)="saveArticle()">
-        💾 Сохранить
+      <button
+        class="btn btn-primary"
+        (click)="saveArticle()"
+        aria-label="Сохранить статью">
+        <span aria-hidden="true">💾</span>
+        Сохранить
       </button>
     </div>
-  </div>
+  </section>
 
   <!-- View Mode -->
-  <div class="view-mode" *ngIf="!isEditMode && article">
-    <article class="article">
-      <h1 class="article-title">{{ article.title || 'Без названия' }}</h1>
+  <section class="view-mode" *ngIf="!isEditMode && article" aria-labelledby="view-heading">
+    <article class="article" aria-labelledby="view-heading">
+      <h1 id="view-heading" class="article-title">{{ article.title || 'Без названия' }}</h1>
 
-      <div class="article-meta">
-        <span>Создано: {{ formatDate(article.createdAt) }}</span>
-        <span>Обновлено: {{ formatDate(article.updatedAt) }}</span>
+      <div class="article-meta" aria-label="Информация о статье">
+        <span>
+          <span class="visually-hidden">Создано: </span>
+          <time [attr.datetime]="article.createdAt">{{ formatDate(article.createdAt) }}</time>
+        </span>
+        <span>
+          <span class="visually-hidden">Обновлено: </span>
+          <time [attr.datetime]="article.updatedAt">{{ formatDate(article.updatedAt) }}</time>
+        </span>
       </div>
 
-      <div class="article-info" *ngIf="annotations.length > 0">
-        <span class="annotation-count">📝 {{ annotations.length }} аннотаций</span>
+      <div class="article-info" *ngIf="annotations.length > 0" role="status" aria-live="polite">
+        <span class="annotation-count" [attr.aria-label]="annotations.length + ' аннотаций к статье'">
+          <span aria-hidden="true">📝</span>
+          {{ annotations.length }} аннотаций
+        </span>
       </div>
 
       <div
@@ -66,44 +111,72 @@
         (touchstart)="onTouchStart($event)"
         (touchend)="onTouchEnd($event)"
         (touchcancel)="isSelecting = false"
-      >
+        (keydown)="onContentKeydown($event)"
+        tabindex="0"
+        role="article"
+        aria-label="Содержание статьи. Выделите текст для добавления аннотации."
+        [attr.aria-describedby]="annotations.length === 0 ? 'selection-hint' : null">
         {{ article.content }}
       </div>
 
-      <div class="selection-hint" *ngIf="annotations.length === 0">
-        💡 Выделите текст, чтобы добавить аннотацию
+      <div class="selection-hint" *ngIf="annotations.length === 0" id="selection-hint" role="note">
+        <span aria-hidden="true">💡</span>
+        <span>Выделите текст, чтобы добавить аннотацию</span>
         <span class="mobile-hint">(удерживайте и перетащите для выделения)</span>
       </div>
     </article>
-  </div>
+  </section>
 
   <!-- Annotation Modal -->
-  <div class="modal-overlay" *ngIf="showAnnotationModal" (click)="cancelAnnotation()">
-    <div class="modal" (click)="$event.stopPropagation()">
+  <div
+    class="modal-overlay"
+    *ngIf="showAnnotationModal"
+    (click)="cancelAnnotation()"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+    aria-describedby="modal-description"
+    @modalAnimation>
+    <div
+      class="modal"
+      (click)="$event.stopPropagation()"
+      role="document"
+      (keydown)="onModalKeydown($event)">
       <div class="modal-header">
-        <h3>Создать аннотацию</h3>
-        <button class="btn-close" (click)="cancelAnnotation()">×</button>
+        <h2 id="modal-title">Создать аннотацию</h2>
+        <button
+          class="btn-close"
+          (click)="cancelAnnotation()"
+          aria-label="Закрыть диалог"
+          title="Закрыть">
+          <span aria-hidden="true">×</span>
+        </button>
       </div>
 
-      <div class="modal-body">
+      <div class="modal-body" id="modal-description">
         <div class="selected-text-preview">
-          <label>Выделенный текст:</label>
-          <p class="selected-text">"{{ selectedText }}"</p>
+          <label id="selected-text-label">Выделенный текст:</label>
+          <p class="selected-text" aria-labelledby="selected-text-label">"{{ selectedText }}"</p>
         </div>
 
-        <div class="form-group">
-          <label for="annotationColor">Цвет подчёркивания:</label>
-          <div class="color-picker">
+        <fieldset class="form-group">
+          <legend id="color-legend">Цвет подчёркивания:</legend>
+          <div class="color-picker" role="radiogroup" aria-labelledby="color-legend">
             <button
-              *ngFor="let color of colors"
+              *ngFor="let color of colors; let i = index"
               class="color-option"
               [style.backgroundColor]="color.value"
               [class.selected]="annotationColor === color.value"
               (click)="annotationColor = color.value"
-              [title]="color.label"
-            ></button>
+              [attr.aria-label]="color.label"
+              [attr.aria-checked]="annotationColor === color.value"
+              role="radio"
+              [tabindex]="annotationColor === color.value ? 0 : -1"
+              [title]="color.label">
+              <span *ngIf="annotationColor === color.value" class="visually-hidden">Выбрано</span>
+            </button>
           </div>
-        </div>
+        </fieldset>
 
         <div class="form-group">
           <label for="annotationNote">Примечание (необязательно):</label>
@@ -113,15 +186,22 @@
             placeholder="Введите текст примечания..."
             class="input-note"
             rows="3"
-          ></textarea>
+            aria-describedby="note-hint"></textarea>
+          <span id="note-hint" class="visually-hidden">Добавьте необязательное примечание к аннотации</span>
         </div>
       </div>
 
-      <div class="modal-footer">
-        <button class="btn btn-secondary" (click)="cancelAnnotation()">
+      <div class="modal-footer" role="group" aria-label="Действия">
+        <button
+          class="btn btn-secondary"
+          (click)="cancelAnnotation()"
+          aria-label="Отменить создание аннотации">
           Отмена
         </button>
-        <button class="btn btn-primary" (click)="createAnnotation()">
+        <button
+          class="btn btn-primary"
+          (click)="createAnnotation()"
+          aria-label="Создать аннотацию">
           Создать аннотацию
         </button>
       </div>
@@ -135,7 +215,9 @@
     *ngIf="tooltipVisible"
     [style.left.px]="tooltipX"
     [style.top.px]="tooltipY"
-  >
+    role="tooltip"
+    aria-live="polite"
+    [attr.aria-label]="tooltipText">
     {{ tooltipText }}
   </div>
-</div>
+</main>

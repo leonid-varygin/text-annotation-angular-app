@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil, combineLatest } from 'rxjs';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ArticleService } from '../../services/article.service';
 import { AnnotationService } from '../../services/annotation.service';
 import { Article, Annotation } from '../../models/article.model';
@@ -12,7 +13,18 @@ import { Article, Annotation } from '../../models/article.model';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './article-editor.component.html',
-  styleUrls: ['./article-editor.component.scss']
+  styleUrls: ['./article-editor.component.scss'],
+  animations: [
+    trigger('modalAnimation', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('200ms ease-out', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('200ms ease-in', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('contentContainer') contentContainer!: ElementRef<HTMLDivElement>;
@@ -51,6 +63,9 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewCheck
   tooltipX = 0;
   tooltipY = 0;
   currentHoveredAnnotation: Annotation | null = null;
+
+  // Accessibility
+  announcement = '';
 
   private destroy$ = new Subject<void>();
   private annotationsApplied = false;
@@ -418,5 +433,72 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewCheck
       hour: '2-digit',
       minute: '2-digit'
     });
+  }
+
+  /**
+   * Обработка клавиатурной навигации для содержимого статьи
+   */
+  onContentKeydown(event: KeyboardEvent): void {
+    // Escape - скрыть тултип
+    if (event.key === 'Escape' && this.tooltipVisible) {
+      this.hideTooltip();
+      event.preventDefault();
+    }
+  }
+
+  /**
+   * Обработка клавиатурной навигации для модального окна
+   */
+  onModalKeydown(event: KeyboardEvent): void {
+    // Escape - закрыть модальное окно
+    if (event.key === 'Escape') {
+      this.cancelAnnotation();
+      event.preventDefault();
+      return;
+    }
+
+    // Tab - trap focus внутри модального окна
+    if (event.key === 'Tab') {
+      this.trapFocusInModal(event);
+    }
+  }
+
+  /**
+   * Trap focus внутри модального окна для доступности
+   */
+  private trapFocusInModal(event: KeyboardEvent): void {
+    const modal = document.querySelector('.modal') as HTMLElement;
+    if (!modal) return;
+
+    const focusableElements = modal.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+
+    const firstElement = focusableElements[0] as HTMLElement;
+    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+    if (event.shiftKey) {
+      // Shift + Tab
+      if (document.activeElement === firstElement) {
+        lastElement?.focus();
+        event.preventDefault();
+      }
+    } else {
+      // Tab
+      if (document.activeElement === lastElement) {
+        firstElement?.focus();
+        event.preventDefault();
+      }
+    }
+  }
+
+  /**
+   * Анонс для скринридера
+   */
+  announce(message: string): void {
+    this.announcement = message;
+    setTimeout(() => {
+      this.announcement = '';
+    }, 1000);
   }
 }

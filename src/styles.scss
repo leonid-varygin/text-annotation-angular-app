@@ -37,10 +37,42 @@ html, body {
   background: rgba(74, 144, 217, 0.3);
 }
 
-/* Focus outline */
-:focus-visible {
+/* Focus outline - улучшенная видимость для доступности */
+:focus {
   outline: 2px solid #4a90d9;
   outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 3px solid #4a90d9;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(74, 144, 217, 0.25);
+}
+
+/* Skip link для клавиатурной навигации */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #4a90d9;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 0 0 8px 8px;
+  text-decoration: none;
+  font-weight: 600;
+  z-index: 9999;
+  transition: top 0.3s ease;
+
+  &:focus {
+    top: 0;
+    outline: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
 }
 
 /* Utility classes */
@@ -54,4 +86,50 @@ html, body {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+
+  /* Позволяет элементу стать видимым при фокусе */
+  &:focus-within {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+}
+
+/* Reduced motion для пользователей с вестибулярными нарушениями */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :focus-visible {
+    outline: 3px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  .btn {
+    border: 2px solid currentColor;
+  }
+}
+
+/* Улучшенная видимость для людей с нарушениями зрения */
+@media (forced-colors: active) {
+  .btn {
+    border: 2px solid currentColor;
+  }
+
+  .article-card:focus,
+  .color-option:focus {
+    outline: 3px solid currentColor;
+  }
 }
