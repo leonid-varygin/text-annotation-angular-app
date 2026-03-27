@@ -37,6 +37,7 @@
         },
         "configurations": {
           "production": {
+            "baseHref": "/text-annotation-angular-app/",
             "budgets": [
               {
                 "type": "initial",
