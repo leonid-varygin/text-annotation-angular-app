@@ -1,27 +1,197 @@
-# TextAnnotationApp
+# 📝 Text Annotation App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.21.
+Приложение для создания и аннотирования текстовых статей, построенное на Angular 18 с использованием реактивных подходов RxJS.
 
-## Development server
+## 🚀 Возможности
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Управление статьями**: создание, редактирование и удаление статей
+- **Аннотирование текста**: выделение фрагментов текста с возможностью добавления примечаний
+- **Цветовая маркировка**: выбор цвета для каждой аннотации
+- **Всплывающие подсказки**: просмотр примечаний при наведении на аннотированный текст
+- **Локальное хранение**: все данные сохраняются в localStorage браузера
 
-## Code scaffolding
+## 📋 Требования
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Node.js 18+
+- npm 9+
+- Angular CLI 18+
 
-## Build
+## 🛠️ Установка
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+# Клонирование репозитория
+git clone <repository-url>
+cd text-annotation-app
 
-## Running unit tests
+# Установка зависимостей
+npm install
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 🏃 Запуск
 
-## Running end-to-end tests
+```bash
+# Запуск development сервера
+npm start
+# или
+ng serve
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Приложение будет доступно по адресу `http://localhost:4200/`
 
-## Further help
+## 🏗️ Сборка
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+# Сборка проекта
+npm run build
+# или
+ng build
+```
+
+Артефакты сборки будут размещены в директории `dist/`
+
+## 🧪 Тестирование
+
+```bash
+# Запуск unit тестов
+npm test
+# или
+ng test
+```
+
+## 📁 Структура проекта
+
+```
+src/
+├── app/
+│   ├── components/
+│   │   ├── article-list/          # Компонент списка статей
+│   │   │   ├── article-list.component.ts
+│   │   │   ├── article-list.component.html
+│   │   │   └── article-list.component.scss
+│   │   └── article-editor/        # Компонент редактора статьи
+│   │       ├── article-editor.component.ts
+│   │       ├── article-editor.component.html
+│   │       └── article-editor.component.scss
+│   ├── models/
+│   │   └── article.model.ts       # Интерфейсы данных (Article, Annotation)
+│   ├── services/
+│   │   ├── article.service.ts     # Сервис управления статьями
+│   │   └── annotation.service.ts  # Сервис управления аннотациями
+│   ├── app.component.ts           # Корневой компонент
+│   ├── app.config.ts              # Конфигурация приложения
+│   └── app.routes.ts              # Маршрутизация
+├── styles.scss                    # Глобальные стили
+└── main.ts                        # Точка входа
+```
+
+## 🎯 Функциональность
+
+### Работа со статьями
+
+| Действие | Описание |
+|----------|----------|
+| Создать статью | Кнопка "Создать статью" на главной странице |
+| Редактировать статью | Кнопка ✏️ на карточке статьи или "Редактировать" в режиме просмотра |
+| Удалить статью | Кнопка 🗑️ на карточке статьи |
+| Просмотреть статью | Клик по карточке статьи |
+
+### Работа с аннотациями
+
+1. **Создание аннотации**:
+   - Откройте статью в режиме просмотра
+   - Выделите фрагмент текста
+   - В появившемся модальном окне выберите цвет и добавьте примечание
+   - Нажмите "Создать аннотацию"
+
+2. **Просмотр аннотации**:
+   - Наведите курсор на подсвеченный текст
+   - Примечание отобразится во всплывающей подсказке
+
+3. **Редактирование/Удаление аннотации**:
+   - Кликните по аннотированному тексту
+   - Введите `edit` для редактирования или `delete` для удаления
+
+## 🔧 Технические детали
+
+### Технологии
+
+| Технология | Версия | Назначение |
+|------------|--------|------------|
+| Angular | 18.2.0 | Frontend фреймворк |
+| TypeScript | 5.5.2 | Язык программирования |
+| RxJS | 7.8.0 | Реактивное программирование |
+| SCSS | - | Стилизация |
+
+### Архитектурные решения
+
+- **Standalone Components**: использование автономных компонентов без NgModules
+- **Reactive State Management**: управление состоянием через BehaviorSubject
+- **Dependency Injection**: сервисы предоставляются через `providedIn: 'root'`
+- **Range API**: для работы с выделением текста и позиционированием аннотаций
+- **localStorage API**: для персистентного хранения данных
+
+### Маршрутизация
+
+| Путь | Компонент | Описание |
+|------|-----------|----------|
+| `/` | ArticleListComponent | Список статей |
+| `/articles/new` | ArticleEditorComponent | Создание новой статьи |
+| `/articles/:id` | ArticleEditorComponent | Просмотр статьи |
+| `/articles/:id/edit` | ArticleEditorComponent | Редактирование статьи |
+
+## 🎨 Цвета аннотаций
+
+| Цвет | Код | Название |
+|------|-----|----------|
+| 🟡 Желтый | `#ffeb3b` | Желтый |
+| 🟢 Зеленый | `#4caf50` | Зеленый |
+| 🔵 Синий | `#2196f3` | Синий |
+| 🟠 Оранжевый | `#ff9800` | Оранжевый |
+| 🩷 Розовый | `#e91e63` | Розовый |
+| 🟣 Фиолетовый | `#9c27b0` | Фиолетовый |
+
+## 📊 Модели данных
+
+### Article
+
+```typescript
+interface Article {
+  id: string;          // Уникальный идентификатор
+  title: string;       // Заголовок статьи
+  content: string;     // Содержание
+  createdAt: number;   // Timestamp создания
+  updatedAt: number;   // Timestamp обновления
+}
+```
+
+### Annotation
+
+```typescript
+interface Annotation {
+  id: string;           // Уникальный идентификатор
+  articleId: string;    // ID связанной статьи
+  startIndex: number;   // Начальная позиция в тексте
+  endIndex: number;     // Конечная позиция в тексте
+  selectedText: string; // Выделенный текст
+  color: string;        // Цвет подсветки
+  note: string;         // Примечание
+  createdAt: number;    // Timestamp создания
+}
+```
+
+## 🔒 Хранение данных
+
+Данные сохраняются в localStorage браузера:
+
+- `text_annotation_articles` — массив статей
+- `text_annotation_annotations` — массив аннотаций
+
+## 📝 Примечания
+
+- Приложение не использует сторонние библиотеки для UI, аннотаций и всплывающих подсказок
+- Все реализации выполнены средствами Angular, HTML, CSS и встроенных API браузера
+- Подсветка аннотаций реализована через DOM манипуляции с использованием Range API
+
+## 📄 Лицензия
+
+MIT
