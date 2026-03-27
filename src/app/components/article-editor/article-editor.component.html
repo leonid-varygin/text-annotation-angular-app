@@ -40,7 +40,7 @@
         placeholder="Введите заголовок статьи..."
         class="form__input form__input--title"
         aria-required="true"
-        [attr.aria-invalid]="title?.trim() === '' ? 'true' : 'false'"
+        [attr.aria-invalid]="title.trim() === '' ? 'true' : 'false'"
         aria-describedby="title-hint"
       />
       <span id="title-hint" class="visually-hidden">Введите название вашей статьи</span>
@@ -58,7 +58,7 @@
         class="form__input form__input--content"
         rows="15"
         aria-required="true"
-        [attr.aria-invalid]="content?.trim() === '' ? 'true' : 'false'"
+        [attr.aria-invalid]="content.trim() === '' ? 'true' : 'false'"
         aria-describedby="content-hint"
       ></textarea>
       <span id="content-hint" class="visually-hidden">Введите основной текст вашей статьи. Поддерживается выделение текста для добавления аннотаций.</span>
