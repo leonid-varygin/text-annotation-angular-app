@@ -245,6 +245,11 @@ html, body {
     outline: none;
     box-shadow: 0 $spacing-md 12px rgba(0, 0, 0, 0.3);
   }
+
+  /* Скрываем на мобильных устройствах */
+  @media (max-width: $breakpoint-md) {
+    display: none;
+  }
 }
 
 /* Utility classes */
