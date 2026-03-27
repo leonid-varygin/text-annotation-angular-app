@@ -19,21 +19,15 @@
 ## 🛠️ Установка
 
 ```bash
-# Клонирование репозитория
 git clone <repository-url>
 cd text-annotation-app
-
-# Установка зависимостей
 npm install
 ```
 
 ## 🏃 Запуск
 
 ```bash
-# Запуск development сервера
 npm start
-# или
-ng serve
 ```
 
 Приложение будет доступно по адресу `http://localhost:4200/`
@@ -41,10 +35,7 @@ ng serve
 ## 🏗️ Сборка
 
 ```bash
-# Сборка проекта
 npm run build
-# или
-ng build
 ```
 
 Артефакты сборки будут размещены в директории `dist/`
@@ -52,10 +43,39 @@ ng build
 ## 🧪 Тестирование
 
 ```bash
-# Запуск unit тестов
 npm test
-# или
-ng test
+```
+
+## 🌐 Деплой на GitHub Pages
+
+Приложение настроено для развертывания на GitHub Pages с использованием `angular-cli-ghpages`.
+
+### Автоматический деплой
+
+```bash
+ng deploy --base-href=/text-annotation-app/
+```
+
+Замените `text-annotation-app` на название вашего репозитория.
+
+### Результат
+
+После успешного деплоя приложение будет доступно по адресу:
+```
+https://<username>.github.io/text-annotation-app/
+```
+
+### Настройка репозитория
+
+1. Откройте настройки репозитория на GitHub
+2. Перейдите в **Settings** → **Pages**
+3. Убедитесь, что Source установлен на `gh-pages` branch
+
+### Примечание о маршрутизации
+
+Приложение использует `HashLocationStrategy` для корректной работы маршрутизации на GitHub Pages. URL будут иметь вид:
+```
+https://<username>.github.io/text-annotation-app/#/articles/123
 ```
 
 ## 📁 Структура проекта
@@ -65,15 +85,9 @@ src/
 ├── app/
 │   ├── components/
 │   │   ├── article-list/          # Компонент списка статей
-│   │   │   ├── article-list.component.ts
-│   │   │   ├── article-list.component.html
-│   │   │   └── article-list.component.scss
 │   │   └── article-editor/        # Компонент редактора статьи
-│   │       ├── article-editor.component.ts
-│   │       ├── article-editor.component.html
-│   │       └── article-editor.component.scss
 │   ├── models/
-│   │   └── article.model.ts       # Интерфейсы данных (Article, Annotation)
+│   │   └── article.model.ts       # Интерфейсы данных
 │   ├── services/
 │   │   ├── article.service.ts     # Сервис управления статьями
 │   │   └── annotation.service.ts  # Сервис управления аннотациями
@@ -91,7 +105,7 @@ src/
 | Действие | Описание |
 |----------|----------|
 | Создать статью | Кнопка "Создать статью" на главной странице |
-| Редактировать статью | Кнопка ✏️ на карточке статьи или "Редактировать" в режиме просмотра |
+| Редактировать статью | Кнопка ✏️ на карточке статьи |
 | Удалить статью | Кнопка 🗑️ на карточке статьи |
 | Просмотреть статью | Клик по карточке статьи |
 
@@ -127,8 +141,11 @@ src/
 - **Standalone Components**: использование автономных компонентов без NgModules
 - **Reactive State Management**: управление состоянием через BehaviorSubject
 - **Dependency Injection**: сервисы предоставляются через `providedIn: 'root'`
+- **HashLocationStrategy**: для работы маршрутизации на статических хостингах
 - **Range API**: для работы с выделением текста и позиционированием аннотаций
 - **localStorage API**: для персистентного хранения данных
+
+https://leonid-varygin.github.io/text-annotation-app/
 
 ### Маршрутизация
 
@@ -143,12 +160,12 @@ src/
 
 | Цвет | Код | Название |
 |------|-----|----------|
-| 🟡 Желтый | `#ffeb3b` | Желтый |
-| 🟢 Зеленый | `#4caf50` | Зеленый |
-| 🔵 Синий | `#2196f3` | Синий |
-| 🟠 Оранжевый | `#ff9800` | Оранжевый |
-| 🩷 Розовый | `#e91e63` | Розовый |
-| 🟣 Фиолетовый | `#9c27b0` | Фиолетовый |
+| Желтый | `#ffeb3b` | Желтый |
+| Зеленый | `#4caf50` | Зеленый |
+| Синий | `#2196f3` | Синий |
+| Оранжевый | `#ff9800` | Оранжевый |
+| Розовый | `#e91e63` | Розовый |
+| Фиолетовый | `#9c27b0` | Фиолетовый |
 
 ## 📊 Модели данных
 
@@ -156,11 +173,11 @@ src/
 
 ```typescript
 interface Article {
-  id: string;          // Уникальный идентификатор
-  title: string;       // Заголовок статьи
-  content: string;     // Содержание
-  createdAt: number;   // Timestamp создания
-  updatedAt: number;   // Timestamp обновления
+  id: string;
+  title: string;
+  content: string;
+  createdAt: number;
+  updatedAt: number;
 }
 ```
 
@@ -168,14 +185,14 @@ interface Article {
 
 ```typescript
 interface Annotation {
-  id: string;           // Уникальный идентификатор
-  articleId: string;    // ID связанной статьи
-  startIndex: number;   // Начальная позиция в тексте
-  endIndex: number;     // Конечная позиция в тексте
-  selectedText: string; // Выделенный текст
-  color: string;        // Цвет подсветки
-  note: string;         // Примечание
-  createdAt: number;    // Timestamp создания
+  id: string;
+  articleId: string;
+  startIndex: number;
+  endIndex: number;
+  selectedText: string;
+  color: string;
+  note: string;
+  createdAt: number;
 }
 ```
 
